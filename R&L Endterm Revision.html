@@ -1,0 +1,1562 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>R&amp;L Endterm Revision</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+Math&display=swap">
+<style>
+/* Layout: one reading column; each chapter opens with a Delft-tile glyph; formulas set in mono on glaze panels; sticky chapter bar */
+:root{
+  --bg:#f6f8fc; --surface:#ffffff; --ink:#132241; --muted:#4e5c78; --cobalt:#1d4ea0; --glaze:#e6edf9; --line:#d2dbeb;
+  --good:#1f7346; --good-soft:#e0f1e7; --warn:#8f5508; --warn-soft:#fbeed8; --bad:#b0281f; --bad-soft:#fbe4e1;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --math:"JetBrains Mono","Noto Sans Math","Cambria Math","STIX Two Math",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1322; --surface:#131c30; --ink:#e5eaf4; --muted:#a2adc4; --cobalt:#8fb0ff; --glaze:#1a2743; --line:#2a3654;
+  --good:#79d6a0; --good-soft:#15301f; --warn:#f0b75a; --warn-soft:#33270f; --bad:#ff8f86; --bad-soft:#3b1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1322; --surface:#131c30; --ink:#e5eaf4; --muted:#a2adc4; --cobalt:#8fb0ff; --glaze:#1a2743; --line:#2a3654;
+  --good:#79d6a0; --good-soft:#15301f; --warn:#f0b75a; --warn-soft:#33270f; --bad:#ff8f86; --bad-soft:#3b1a18; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:880px;margin:0 auto}
+a{color:var(--cobalt);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+button{font:inherit}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0;color:var(--ink)}
+h1{font-size:clamp(2.1rem,6.5vw,3.2rem);font-weight:700;letter-spacing:-.015em}
+h2{font-size:1.6rem;font-weight:700}
+h3{font-size:1.1rem;font-weight:700;margin:30px 0 8px}
+p{margin:0 0 12px;max-width:68ch}
+ul,ol{margin:0 0 12px;padding-left:1.25em}
+li{margin:3px 0}
+.eyebrow{font:700 .7rem/1.3 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.small{font-size:.9rem;color:var(--muted)}
+.f,code{font-family:var(--math);font-size:.9em}
+code{background:var(--glaze);padding:1px 5px;border-radius:4px}
+.ov{text-decoration:overline;text-decoration-thickness:1.5px}
+sub,sup{font-size:.7em}
+
+/* Delft tile */
+.tile{--s:52px;--r:11px;width:var(--s);height:var(--s);flex:0 0 auto;display:grid;place-items:center;border:1.5px solid var(--cobalt);border-radius:3px;color:var(--cobalt);font:600 1.45rem/1 var(--math);
+  background:
+   radial-gradient(circle at 0 0,transparent calc(var(--r) - 1.2px),var(--cobalt) var(--r),transparent calc(var(--r) + 1.2px)),
+   radial-gradient(circle at 100% 0,transparent calc(var(--r) - 1.2px),var(--cobalt) var(--r),transparent calc(var(--r) + 1.2px)),
+   radial-gradient(circle at 0 100%,transparent calc(var(--r) - 1.2px),var(--cobalt) var(--r),transparent calc(var(--r) + 1.2px)),
+   radial-gradient(circle at 100% 100%,transparent calc(var(--r) - 1.2px),var(--cobalt) var(--r),transparent calc(var(--r) + 1.2px)),
+   var(--surface)}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar nav{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+.bar a{flex:0 0 auto;padding:4px 11px;border:1px solid var(--line);border-radius:999px;font-size:.84rem;text-decoration:none;color:var(--ink);background:var(--surface)}
+.bar a:hover{border-color:var(--cobalt);color:var(--cobalt)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center;padding-block:36px 22px}
+.hero .tile{--s:150px;--r:26px;border-width:2px}
+.hero p{color:var(--muted);margin-top:10px}
+.inf{font-family:var(--math);display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.5;color:var(--ink)}
+.inf .c{border-top:1.5px solid currentColor;margin-top:3px;padding-top:2px;align-self:stretch}
+.hero .inf{font-size:1.05rem;color:var(--cobalt)}
+.skip{margin-top:6px;font-size:.9rem;color:var(--muted)}
+.skip summary{cursor:pointer;color:var(--ink);font-weight:700}
+@media (max-width:560px){.hero{grid-template-columns:1fr;gap:18px}.hero .tile{--s:118px;--r:20px}}
+
+/* confidence */
+.panel{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:16px 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);background:var(--bg);font-size:.86rem}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--line);flex:0 0 auto}
+.chip .st{color:var(--muted);font-size:.76rem}
+.chip.s-shaky{border-color:var(--bad);background:var(--bad-soft)} .chip.s-shaky .dot{background:var(--bad)}
+.chip.s-ok .dot{background:var(--warn)}
+.chip.s-solid .dot{background:var(--good)}
+.panel-foot{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.panel-foot p{margin:0;font-size:.92rem}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:2px 0;font-size:.85rem}
+
+/* sections */
+section{scroll-margin-top:calc(62px + env(safe-area-inset-top,0px));padding-top:44px}
+.shead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 16px;align-items:center;padding-bottom:14px;border-bottom:2px solid var(--cobalt);margin-bottom:18px}
+.shead .conf{grid-column:1 / -1}
+@media (min-width:660px){.shead{grid-template-columns:auto minmax(0,1fr) auto}.shead .conf{grid-column:auto}}
+.conf{position:relative;display:inline-flex;justify-self:start;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;background:var(--surface)}
+.conf input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.conf label{padding:4px 12px;border-radius:999px;font-size:.8rem;cursor:pointer;color:var(--muted);user-select:none}
+.conf input:focus-visible + label{outline:2px solid var(--cobalt);outline-offset:1px}
+.conf input[value="shaky"]:checked + label{background:var(--bad-soft);color:var(--bad);font-weight:700}
+.conf input[value="ok"]:checked + label{background:var(--warn-soft);color:var(--warn);font-weight:700}
+.conf input[value="solid"]:checked + label{background:var(--good-soft);color:var(--good);font-weight:700}
+
+/* before-you-walk-in list */
+.must{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:0 28px}
+.must li{padding:10px 0;border-bottom:1px solid var(--line);margin:0;min-width:0}
+.must b{display:block;font-family:var(--display);font-size:.98rem}
+
+/* tables */
+.tbl{overflow-x:auto;margin:10px 0 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th{text-align:left;font:700 .7rem/1.3 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:9px 12px;border-bottom:1px solid var(--line);background:var(--glaze);white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.f{font-family:var(--math);font-size:.88rem;white-space:nowrap}
+table.tt th,table.tt td{text-align:center;font-family:var(--math);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tt th{text-transform:none;letter-spacing:0;font-size:.85rem;color:var(--ink)}
+td.hot{background:var(--bad-soft);color:var(--bad);font-weight:600}
+.yes{color:var(--good);font-weight:700}.no{color:var(--bad);font-weight:700}
+
+/* formula chains and proofs */
+.mpanel{overflow-x:auto;background:var(--glaze);border-radius:8px;padding:12px 16px;margin:10px 0 16px}
+table.chain{width:auto;font-family:var(--math);font-size:.9rem}
+table.chain td{border:0;padding:2px 10px 2px 0;white-space:nowrap}
+table.chain td.why{font-family:var(--body);color:var(--muted);font-size:.84rem;padding-left:20px}
+table.steps td{border-bottom:1px dotted var(--line);padding:6px 10px}
+table.steps td.n{width:2.4em;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+table.steps td.why{color:var(--muted);font-size:.84rem;width:34%}
+.tpl{border:1px solid var(--cobalt);border-radius:8px;background:var(--surface);padding:12px 16px;margin:12px 0 16px}
+.tpl > .eyebrow{color:var(--cobalt);display:block;margin-bottom:6px}
+.tpl ol{margin-bottom:0}
+.trap{border:1px dashed var(--warn);background:var(--warn-soft);border-radius:8px;padding:10px 14px;margin:12px 0 16px}
+.trap > .eyebrow{color:var(--warn);display:block;margin-bottom:4px}
+.trap p:last-child{margin-bottom:0}
+
+/* inference rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin:10px 0 18px}
+.rule{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:10px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.rule .name{font-weight:700;font-size:.86rem}
+.rule .inf{font-size:.92rem}
+.rule.bad{border:1px dashed var(--bad)} .rule.bad .name{color:var(--bad)}
+.rule .small{margin:0;font-size:.8rem}
+
+/* two-column notes */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:4px 28px}
+.cols > div{min-width:0}
+
+/* graphs */
+.figs{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 16px}
+.fig{flex:1 1 210px;margin:0;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:10px 12px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.fig.wide{flex-basis:100%}
+.fig svg{display:block;width:100%;height:auto;max-height:250px}
+.fig figcaption{font-size:.84rem;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.fig figcaption b{color:var(--ink)}
+.fig figcaption .f{font-size:.8rem;overflow-wrap:anywhere}
+.gn circle{fill:var(--glaze);stroke:var(--cobalt);stroke-width:1.5}
+.gn text{fill:var(--ink);font:600 14px var(--math);text-anchor:middle;dominant-baseline:central}
+.ge{stroke:var(--ink);stroke-width:1.5;fill:none}
+.ah{fill:var(--ink)}
+.gw{fill:var(--cobalt);font:600 13px var(--math)}
+.gcap{fill:var(--muted);font:12px var(--body);text-anchor:middle;dominant-baseline:central}
+
+/* number sets */
+.nest{margin:12px 0 18px}
+.ring,.irr{border:1.5px solid var(--cobalt);border-radius:12px;padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.irr{border-style:dashed;background:var(--bg);flex:1 1 180px}
+.ring > .lbl,.irr > .lbl{font:700 .92rem/1.25 var(--display)}
+.lbl b{font:600 1.1rem/1 var(--math);color:var(--cobalt);margin-right:6px}
+.ring .ex,.irr .ex{font-family:var(--math);font-size:.82rem;color:var(--muted)}
+.r-R,.r-Z{background:var(--surface)}
+.r-Q,.r-N{background:var(--glaze)}
+.split{display:flex;flex-wrap:wrap;gap:10px}
+.split > .r-Q{flex:2 1 300px}
+table.tt td.yes,table.tt td.no{font-family:var(--body)}
+
+/* self-test */
+.qa-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.btn{border:1px solid var(--cobalt);background:var(--surface);color:var(--cobalt);border-radius:999px;padding:5px 14px;font-size:.86rem;cursor:pointer}
+.btn:hover{background:var(--glaze)}
+.qa{border-top:1px solid var(--line)}
+.qa details{border-bottom:1px solid var(--line);padding:11px 0}
+.qa summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:4px 14px;align-items:baseline}
+.qa summary::-webkit-details-marker{display:none}
+.qa .tag{font:700 .66rem/1.4 var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--cobalt)}
+.qa .chev{font-size:.78rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 9px}
+.qa .chev::after{content:"Answer"}
+.qa details[open] .chev::after{content:"Hide"}
+.qa .ans{padding:10px 0 2px;margin-left:calc(7.5em + 14px)}
+.qa .ans p:last-child{margin-bottom:0}
+@media (max-width:560px){.qa summary{grid-template-columns:minmax(0,1fr) auto}.qa .tag{grid-column:1 / -1}.qa .ans{margin-left:0}}
+
+/* checker */
+.checker{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:16px}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.fields label{display:block;font-weight:700;font-size:.84rem;margin-bottom:4px}
+.fields input{width:100%;font:1.02rem var(--math);padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.fields input:focus{border-color:var(--cobalt);outline:none;box-shadow:0 0 0 2px var(--glaze)}
+.syms,.ex{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px}
+.syms button{font:600 1rem var(--math);min-width:42px;padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--glaze);color:var(--ink);cursor:pointer}
+.syms button:hover,.ex button:hover{border-color:var(--cobalt)}
+.ex button{font-size:.82rem;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--ink);cursor:pointer}
+#tt-out{margin-top:14px}
+.read{font-size:.88rem;color:var(--muted);margin:0 0 4px}
+.read .f{color:var(--ink)}
+.verdicts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pill{font-size:.84rem;font-weight:700;padding:3px 11px;border-radius:999px;border:1px solid var(--line)}
+.pill.good{background:var(--good-soft);color:var(--good);border-color:transparent}
+.pill.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.pill.neutral{background:var(--glaze);color:var(--ink);border-color:transparent}
+.err{color:var(--bad);font-weight:700}
+#tt-out .tbl{max-height:420px;overflow:auto}
+tr.diff td{background:var(--bad-soft)}
+
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted)}
+footer p{max-width:none}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="tile" role="img" aria-label="Modus ponens: from p implies q and p, conclude q">
+    <div class="inf"><span>p → q</span><span>p</span><span class="c">∴ q</span></div>
+  </div>
+  <div>
+    <div class="eyebrow">TU Delft · Reasoning &amp; Logic · Endterm</div>
+    <h1>Reasoning &amp; Logic revision</h1>
+    <p>Everything on the syllabus from chapters 2 to 4 of <em>Delftse Foundations of Computation</em> (2nd edition), in the book's order, with the proof formats the course expects. Section numbers follow that edition.</p>
+    <details class="skip">
+      <summary>Not on the syllabus (starred in the book)</summary>
+      <p>Logic gates, circuits and binary addition (2.3.1–2.3.3, 2.3.5), Towers of Hanoi (3.6.2), binary trees in Java (3.8.3), programming with sets and functions (4.4, 4.6), uncountable-set proofs by diagonalisation (4.7.3–4.7.4), relational databases (4.9) and chapter 5. Disjunctive and conjunctive normal form (2.3.4) <strong>are</strong> examined. Check the course page for the exact endterm scope.</p>
+    </details>
+  </div>
+</header>
+
+<div class="bar" role="navigation" aria-label="Chapters">
+  <nav>
+    <a href="#now">Before you walk in</a>
+    <a href="#prop">Propositional</a>
+    <a href="#pred">Predicate</a>
+    <a href="#deduce">Deduction</a>
+    <a href="#proof">Proofs</a>
+    <a href="#induct">Induction</a>
+    <a href="#sets">Sets</a>
+    <a href="#graphs">Graphs</a>
+    <a href="#nums">Number sets</a>
+    <a href="#func">Functions</a>
+    <a href="#card">Cardinality</a>
+    <a href="#rel">Relations</a>
+    <a href="#test">Self-test</a>
+    <a href="#check">Truth tables</a>
+  </nav>
+</div>
+
+<div class="panel" style="margin-top:20px">
+  <div class="eyebrow">Your confidence per chapter</div>
+  <div class="chips" id="conf-chips"></div>
+  <div class="panel-foot">
+    <p id="conf-note">Rate each chapter with the switch next to its title.</p>
+    <button class="linkbtn" id="conf-reset" type="button">Clear ratings</button>
+  </div>
+</div>
+
+<!-- ============ BEFORE YOU WALK IN ============ -->
+<section id="now">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">∎</div>
+    <div><div class="eyebrow">Read this tomorrow, last</div><h2>Before you walk in</h2></div>
+  </div>
+  <ul class="must">
+    <li><b>Implication</b><code>p → q</code> is false only when p is true and q is false. Its negation is <code>p ∧ ¬q</code>.</li>
+    <li><b>Contrapositive vs converse</b><code>¬q → ¬p</code> is equivalent to <code>p → q</code>. The converse <code>q → p</code> and inverse <code>¬p → ¬q</code> are not.</li>
+    <li><b>Quantifier pairing</b>∀ goes with →, ∃ goes with ∧: <code>∀x(S(x) → P(x))</code>, <code>∃x(S(x) ∧ P(x))</code>.</li>
+    <li><b>Negating quantifiers</b><code>¬∀x P(x) ≡ ∃x ¬P(x)</code> and <code>¬∃x P(x) ≡ ∀x ¬P(x)</code>. Never swap the order of ∀ and ∃.</li>
+    <li><b>Disproving</b>Always give a concrete counterexample: a truth assignment, specific numbers, or a structure <code>D = {…}</code>.</li>
+    <li><b>Formal proofs</b>Numbered lines, each with its justification (premise, rule, definition). Finish with ∎ or Q.E.D.</li>
+    <li><b>Induction</b>Define P(n), do the base case, write "let k be arbitrary", state the IH, mark where you use it, conclude.</li>
+    <li><b>Structural induction</b>One case for every rule of the recursive definition. IH for the parts, show it for the whole.</li>
+    <li><b>Set equality</b>Show A ⊆ B and B ⊆ A, each with "let x be arbitrary, assume x ∈ …".</li>
+    <li><b>∈ versus ⊆</b>∅ ⊆ A for every A, and ∅ ∈ P(A). P(∅) = {∅}, which has one element.</li>
+    <li><b>Topological ordering</b>Repeatedly take a vertex with no incoming edges and remove it with its outgoing edges. Only a DAG has one, and it is usually not unique.</li>
+    <li><b>Functions</b>Injective: <code>f(x) = f(y) → x = y</code>. Surjective: take an arbitrary b and construct a with f(a) = b.</li>
+    <li><b>Countably infinite</b>Give a bijection from ℕ = {0, 1, 2, …}. ℕ includes 0 in this book.</li>
+    <li><b>Relation types</b>Equivalence: reflexive, symmetric, transitive. Partial order: reflexive, antisymmetric, transitive. Total order: partial order where every pair is comparable.</li>
+    <li><b>Spelling</b>"Prove" is the verb, "proof" is the noun. The book names this the most common mistake on R&amp;L exams.</li>
+  </ul>
+</section>
+
+<!-- ============ PROPOSITIONAL ============ -->
+<section id="prop" data-topic="Propositional logic">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">¬</div>
+    <div><div class="eyebrow">Chapter 2.1 – 2.3</div><h2>Propositional logic</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: propositional logic"></div>
+  </div>
+
+  <h3>The operators</h3>
+  <div class="tbl"><table class="tt">
+    <thead><tr><th>p</th><th>q</th><th>¬p</th><th>p ∧ q</th><th>p ∨ q</th><th>p → q</th><th>p ↔ q</th><th>p ⊕ q</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+      <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+      <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td class="hot">0</td><td>0</td><td>1</td></tr>
+      <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+    </tbody>
+  </table></div>
+  <p>With n variables a truth table has 2<sup>n</sup> rows. Write rows in sorted order (000, 001, …, 111). From a false premise anything follows, so <code>p → q</code> is true whenever p is false (principle of explosion).</p>
+  <p><strong>Precedence</strong>, strongest first: ¬, then ∧, then ∨ and ⊕ (equal), then →, then ↔. Equal operators are read left to right, so <code>p ∧ q ∧ r</code> means <code>(p ∧ q) ∧ r</code>. The course still wants the parentheses written out. The main connective is the one evaluated last.</p>
+
+  <h3>Implications in English</h3>
+  <div class="cols">
+    <div class="tbl"><table>
+      <thead><tr><th>English</th><th>Logic</th></tr></thead>
+      <tbody>
+        <tr><td>if p then q · p implies q</td><td class="f">p → q</td></tr>
+        <tr><td>p only if q · q if p</td><td class="f">p → q</td></tr>
+        <tr><td>p is sufficient for q · q is necessary for p</td><td class="f">p → q</td></tr>
+        <tr><td>p if and only if q (iff)</td><td class="f">p ↔ q</td></tr>
+        <tr><td>p or q, but not both</td><td class="f">p ⊕ q</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Of p → q</th><th>Form</th><th>≡ p → q?</th></tr></thead>
+      <tbody>
+        <tr><td>Contrapositive</td><td class="f">¬q → ¬p</td><td class="yes">yes</td></tr>
+        <tr><td>Converse</td><td class="f">q → p</td><td class="no">no</td></tr>
+        <tr><td>Inverse</td><td class="f">¬p → ¬q</td><td class="no">no</td></tr>
+        <tr><td>Negation</td><td class="f">p ∧ ¬q</td><td class="small">its opposite</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h3>Classifying propositions</h3>
+  <p>A <strong>tautology</strong> is true in every row, a <strong>contradiction</strong> is false in every row, a <strong>contingency</strong> is neither. P is a tautology iff ¬P is a contradiction. P and Q are <strong>logically equivalent</strong> (<code>P ≡ Q</code>) iff <code>P ↔ Q</code> is a tautology. A set of operators is <strong>functionally complete</strong> if every formula can be rewritten with only those operators: {¬, ∨}, {¬, ∧} and {↓} (NOR, <code>p ↓ q ≡ ¬(p ∨ q)</code>, so <code>¬p ≡ p ↓ p</code>) all are.</p>
+
+  <h3>Laws of Boolean algebra (Figure 2.2 and friends)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Law</th><th>∧ form</th><th>∨ form</th></tr></thead>
+    <tbody>
+      <tr><td>Double negation</td><td class="f" colspan="2">¬(¬p) ≡ p</td></tr>
+      <tr><td>Excluded middle / Contradiction</td><td class="f">p ∧ ¬p ≡ F</td><td class="f">p ∨ ¬p ≡ T</td></tr>
+      <tr><td>Identity</td><td class="f">T ∧ p ≡ p</td><td class="f">F ∨ p ≡ p</td></tr>
+      <tr><td>Domination (exercise 2.2.8)</td><td class="f">F ∧ p ≡ F</td><td class="f">T ∨ p ≡ T</td></tr>
+      <tr><td>Idempotent</td><td class="f">p ∧ p ≡ p</td><td class="f">p ∨ p ≡ p</td></tr>
+      <tr><td>Commutative</td><td class="f">p ∧ q ≡ q ∧ p</td><td class="f">p ∨ q ≡ q ∨ p</td></tr>
+      <tr><td>Associative</td><td class="f">(p ∧ q) ∧ r ≡ p ∧ (q ∧ r)</td><td class="f">(p ∨ q) ∨ r ≡ p ∨ (q ∨ r)</td></tr>
+      <tr><td>Distributive</td><td class="f">p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)</td><td class="f">p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)</td></tr>
+      <tr><td>DeMorgan</td><td class="f">¬(p ∧ q) ≡ ¬p ∨ ¬q</td><td class="f">¬(p ∨ q) ≡ ¬p ∧ ¬q</td></tr>
+      <tr><td>Absorption</td><td class="f">p ∧ (p ∨ q) ≡ p</td><td class="f">p ∨ (p ∧ q) ≡ p</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Each law in a pair is the other with ∧↔∨ and T↔F swapped (duality). Laws can be used in both directions, and the First and Second Substitution Laws let you plug any formula in for p and replace any subformula with an equivalent one.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Rewrite rule</th><th>Equivalence</th></tr></thead>
+    <tbody>
+      <tr><td>Definition of →</td><td class="f">p → q ≡ ¬p ∨ q</td></tr>
+      <tr><td>Negated implication</td><td class="f">¬(p → q) ≡ p ∧ ¬q</td></tr>
+      <tr><td>Contrapositive</td><td class="f">p → q ≡ ¬q → ¬p</td></tr>
+      <tr><td>Biconditional</td><td class="f">p ↔ q ≡ (p → q) ∧ (q → p)</td></tr>
+      <tr><td>Exclusive or</td><td class="f">p ⊕ q ≡ (p ∨ q) ∧ ¬(p ∧ q)</td></tr>
+      <tr><td>Or as implication</td><td class="f">p ∨ q ≡ ¬p → q</td></tr>
+      <tr><td>Exportation (exercise 2.2.9d)</td><td class="f">p → (q → r) ≡ (p ∧ q) → r</td></tr>
+      <tr><td>Proof by cases (exercise 2.2.9e)</td><td class="f">(p → r) ∧ (q → r) ≡ (p ∨ q) → r</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap"><span class="eyebrow">Trap</span><p>→ is <strong>not</strong> associative: <code>(p → q) → r ≢ p → (q → r)</code>. With p = q = r = 0 the left side is 0 and the right side is 1. If a rule is not in Figure 2.2, derive it in a line or two rather than citing it by a name the grader may not accept.</p></div>
+
+  <h3>Worked chain of equivalences</h3>
+  <div class="mpanel"><table class="chain">
+    <tr><td></td><td>p ∧ (p → q)</td><td class="why"></td></tr>
+    <tr><td>≡</td><td>p ∧ (¬p ∨ q)</td><td class="why">definition of →</td></tr>
+    <tr><td>≡</td><td>(p ∧ ¬p) ∨ (p ∧ q)</td><td class="why">distributive law</td></tr>
+    <tr><td>≡</td><td>F ∨ (p ∧ q)</td><td class="why">law of contradiction</td></tr>
+    <tr><td>≡</td><td>p ∧ q</td><td class="why">identity law</td></tr>
+  </table></div>
+  <p>To show a tautology algebraically, build a chain from P to T. To show non-equivalence, give one row where the two formulas differ.</p>
+
+  <h3>Normal forms (examined)</h3>
+  <p>A <strong>simple term</strong> is a variable or its negation. <strong>DNF</strong> is a disjunction of conjunctions of simple terms; <strong>CNF</strong> is a conjunction of disjunctions of simple terms. In each conjunction (or disjunction) a variable appears at most once.</p>
+  <div class="tpl"><span class="eyebrow">Recipe from a truth table</span>
+    <ol>
+      <li><strong>DNF:</strong> take every row with output 1. For that row, AND the variables, writing x if it is 1 and ¬x if it is 0. OR all these conjunctions together.</li>
+      <li><strong>CNF:</strong> take every row with output 0. For that row, OR the variables, writing x if it is 0 and ¬x if it is 1 (the clause is false exactly on that row). AND all these clauses together.</li>
+      <li>Simplify with the laws, or with a K-map (the book allows both for DNF).</li>
+    </ol>
+  </div>
+  <div class="cols">
+    <div class="tbl"><table class="tt">
+      <thead><tr><th>p</th><th>q</th><th>p ⊕ q</th><th>gives</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>0</td><td>0</td><td>CNF clause p ∨ q</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>DNF term ¬p ∧ q</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>DNF term p ∧ ¬q</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>CNF clause ¬p ∨ ¬q</td></tr>
+      </tbody>
+    </table></div>
+    <div>
+      <p><strong>DNF:</strong> <code>(¬p ∧ q) ∨ (p ∧ ¬q)</code></p>
+      <p><strong>CNF:</strong> <code>(p ∨ q) ∧ (¬p ∨ ¬q)</code></p>
+      <p class="small">Shortcut: the CNF of P is the DeMorgan negation of the DNF of ¬P.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREDICATE ============ -->
+<section id="pred" data-topic="Predicate logic">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">∀</div>
+    <div><div class="eyebrow">Chapter 2.4</div><h2>Predicate logic</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: predicate logic"></div>
+  </div>
+
+  <p>A <strong>predicate</strong> becomes a proposition once you fill its slots with entities from the <strong>domain of discourse</strong>. <code>P(x)</code> on its own is an <strong>open statement</strong>, not a proposition: x is <strong>free</strong>. In <code>∀x P(x)</code> or <code>∃x P(x)</code> the variable is <strong>bound</strong>. ∃ means "there is at least one".</p>
+
+  <h3>Translation patterns</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>English</th><th>Predicate logic</th></tr></thead>
+    <tbody>
+      <tr><td>All students passed</td><td class="f">∀x(S(x) → P(x))</td></tr>
+      <tr><td>Some student passed</td><td class="f">∃x(S(x) ∧ P(x))</td></tr>
+      <tr><td>No student passed</td><td class="f">∀x(S(x) → ¬P(x)) ≡ ¬∃x(S(x) ∧ P(x))</td></tr>
+      <tr><td>Not every student passed</td><td class="f">∃x(S(x) ∧ ¬P(x))</td></tr>
+      <tr><td>Only students passed</td><td class="f">∀x(P(x) → S(x))</td></tr>
+      <tr><td>All red roses are pretty</td><td class="f">∀x((Rose(x) ∧ Red(x)) → Pretty(x))</td></tr>
+      <tr><td>Everyone owns a computer</td><td class="f">∀x∃y(C(y) ∧ O(x, y))</td></tr>
+      <tr><td>One computer is owned by everyone</td><td class="f">∃y∀x(C(y) ∧ O(x, y))</td></tr>
+      <tr><td>At least two people are happy</td><td class="f">∃x∃y(H(x) ∧ H(y) ∧ x ≠ y)</td></tr>
+      <tr><td>Exactly one person is happy</td><td class="f">∃x(H(x) ∧ ∀y(H(y) → y = x))</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap"><span class="eyebrow">Trap</span>
+    <p><code>∃x(S(x) → P(x))</code> is almost never what you mean: it is already true if a single non-student exists. <code>∀x(S(x) ∧ P(x))</code> says that everything in the domain is a student.</p>
+  </div>
+
+  <h3>Quantifier laws</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Rule</th><th>Statement</th></tr></thead>
+    <tbody>
+      <tr><td>DeMorgan for ∀ (Figure 2.10)</td><td class="f">¬∀x P(x) ≡ ∃x ¬P(x)</td></tr>
+      <tr><td>DeMorgan for ∃ (Figure 2.10)</td><td class="f">¬∃x P(x) ≡ ∀x ¬P(x)</td></tr>
+      <tr><td>Same quantifiers commute</td><td class="f">∀x∀y Q(x,y) ≡ ∀y∀x Q(x,y), same for ∃∃</td></tr>
+      <tr><td>Mixed quantifiers do not</td><td class="f">∀x∃y R(x,y) ≢ ∃y∀x R(x,y)</td></tr>
+      <tr><td>∀ splits over ∧, ∃ splits over ∨</td><td class="f">∀x(P ∧ Q) ≡ ∀xP ∧ ∀xQ, ∃x(P ∨ Q) ≡ ∃xP ∨ ∃xQ</td></tr>
+      <tr><td>But not the other way</td><td class="f">∃x(P(x) ∧ Q(x)) ≢ ∃xP(x) ∧ ∃xQ(x)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Negating step by step</h3>
+  <div class="mpanel"><table class="chain">
+    <tr><td></td><td>¬∀x(P(x) → ∃y Q(x,y))</td><td class="why"></td></tr>
+    <tr><td>≡</td><td>∃x ¬(P(x) → ∃y Q(x,y))</td><td class="why">DeMorgan for ∀</td></tr>
+    <tr><td>≡</td><td>∃x (P(x) ∧ ¬∃y Q(x,y))</td><td class="why">negated implication</td></tr>
+    <tr><td>≡</td><td>∃x (P(x) ∧ ∀y ¬Q(x,y))</td><td class="why">DeMorgan for ∃</td></tr>
+  </table></div>
+  <p>Goal on the exam: ¬ only in front of individual predicates.</p>
+
+  <h3>Formal structures (Tarski's world)</h3>
+  <p>A structure gives the domain D and, for each predicate, the set of entities (or tuples) for which it is true. Use one to evaluate formulas or as a counterexample.</p>
+  <div class="tpl"><span class="eyebrow">Example: why ∀∃ and ∃∀ differ</span>
+    <p>D = {a, b}, L = {(a, a), (b, b)}. Then <code>∀x∃y L(x,y)</code> is true (everyone is related to themselves), but <code>∃y∀x L(x,y)</code> is false: no single y has both (a, y) and (b, y) in L.</p>
+  </div>
+</section>
+
+<!-- ============ DEDUCTION ============ -->
+<section id="deduce" data-topic="Deduction">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">∴</div>
+    <div><div class="eyebrow">Chapter 2.5</div><h2>Deduction and valid arguments</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: deduction"></div>
+  </div>
+
+  <p>An argument is <strong>valid</strong> if in every situation where all premises are true, the conclusion is true. <code>P ⇒ Q</code> means <code>P → Q</code> is a tautology (⇒ relates to → as ≡ relates to ↔). Validity says nothing about whether the premises are actually true.</p>
+
+  <h3>Rules of inference</h3>
+  <div class="rules">
+    <div class="rule"><span class="name">Modus ponens</span><div class="inf"><span>p → q</span><span>p</span><span class="c">∴ q</span></div></div>
+    <div class="rule"><span class="name">Modus tollens</span><div class="inf"><span>p → q</span><span>¬q</span><span class="c">∴ ¬p</span></div></div>
+    <div class="rule"><span class="name">Law of syllogism</span><div class="inf"><span>p → q</span><span>q → r</span><span class="c">∴ p → r</span></div></div>
+    <div class="rule"><span class="name">Disjunctive syllogism</span><div class="inf"><span>p ∨ q</span><span>¬p</span><span class="c">∴ q</span></div></div>
+    <div class="rule"><span class="name">Conjunction</span><div class="inf"><span>p</span><span>q</span><span class="c">∴ p ∧ q</span></div></div>
+    <div class="rule"><span class="name">Simplification</span><div class="inf"><span>p ∧ q</span><span class="c">∴ p</span></div></div>
+    <div class="rule"><span class="name">Addition</span><div class="inf"><span>p</span><span class="c">∴ p ∨ q</span></div></div>
+    <div class="rule"><span class="name">Universal instantiation</span><div class="inf"><span>∀x P(x)</span><span class="c">∴ P(a)</span></div></div>
+    <div class="rule"><span class="name">MP, predicate logic</span><div class="inf"><span>∀x(P(x) → Q(x))</span><span>P(a)</span><span class="c">∴ Q(a)</span></div></div>
+    <div class="rule"><span class="name">MT, predicate logic</span><div class="inf"><span>∀x(P(x) → Q(x))</span><span>¬Q(a)</span><span class="c">∴ ¬P(a)</span></div></div>
+    <div class="rule bad"><span class="name">Invalid: affirming the consequent</span><div class="inf"><span>p → q</span><span>q</span><span class="c">∴ p</span></div><p class="small">counterexample p = 0, q = 1</p></div>
+    <div class="rule bad"><span class="name">Invalid: denying the antecedent</span><div class="inf"><span>p → q</span><span>¬p</span><span class="c">∴ ¬q</span></div><p class="small">counterexample p = 0, q = 1</p></div>
+  </div>
+  <p class="small">The book names modus ponens, modus tollens and the law of syllogism; it lists the other four propositional rules without names, so "from 3 and 6" is also an acceptable justification for conjunction. Every equivalence also gives two deduction rules (each side implies the other).</p>
+
+  <h3>Showing validity: a formal proof</h3>
+  <p>Premises <code>(p ∧ r) → s</code>, <code>q → p</code>, <code>t → r</code>, <code>q</code>, <code>t</code>. Conclusion <code>s</code>.</p>
+  <div class="tbl"><table class="steps">
+    <tr><td class="n">1.</td><td class="f">q → p</td><td class="why">premise</td></tr>
+    <tr><td class="n">2.</td><td class="f">q</td><td class="why">premise</td></tr>
+    <tr><td class="n">3.</td><td class="f">p</td><td class="why">from 1, 2 (modus ponens)</td></tr>
+    <tr><td class="n">4.</td><td class="f">t → r</td><td class="why">premise</td></tr>
+    <tr><td class="n">5.</td><td class="f">t</td><td class="why">premise</td></tr>
+    <tr><td class="n">6.</td><td class="f">r</td><td class="why">from 4, 5 (modus ponens)</td></tr>
+    <tr><td class="n">7.</td><td class="f">p ∧ r</td><td class="why">from 3, 6 (conjunction)</td></tr>
+    <tr><td class="n">8.</td><td class="f">(p ∧ r) → s</td><td class="why">premise</td></tr>
+    <tr><td class="n">9.</td><td class="f">s</td><td class="why">from 7, 8 (modus ponens) ∎</td></tr>
+  </table></div>
+  <p class="small">For three or fewer variables a truth table is also a fine way to test validity. Work forwards ("what can I derive?") and backwards ("what would give me the conclusion?").</p>
+
+  <h3>Showing invalidity: a counterexample</h3>
+  <div class="cols">
+    <div class="tpl"><span class="eyebrow">Propositional</span>
+      <p><code>p → q</code>, <code>q → (p ∧ r)</code>, <code>r</code> ∴ <code>p</code></p>
+      <p>Take p = 0, q = 0, r = 1. All three premises are true and the conclusion is false, so the argument is invalid.</p>
+    </div>
+    <div class="tpl"><span class="eyebrow">Predicate logic</span>
+      <p><code>∃x P(x)</code>, <code>∀x(P(x) → Q(x))</code> ∴ <code>∀x Q(x)</code></p>
+      <p>Structure: D = {a, b}, P = {a}, Q = {a}. Both premises hold (via a), but Q(b) fails, so the conclusion is false.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF ============ -->
+<section id="proof" data-topic="Proof techniques">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">⊢</div>
+    <div><div class="eyebrow">Chapter 3.1 – 3.3</div><h2>Proof techniques</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: proof techniques"></div>
+  </div>
+
+  <h3>Definitions you will unwind</h3>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><td>ℕ, ℤ, ℚ, ℝ</td><td>ℕ = {0, 1, 2, …}; ℚ = numbers m/n with m, n ∈ ℤ and n ≠ 0; irrationals = ℝ ∖ ℚ (overview: <a href="#nums">Number sets</a>)</td></tr>
+      <tr><td>Even / odd</td><td>n is even iff n = 2k for some integer k; odd iff n = 2k + 1 for some integer k</td></tr>
+      <tr><td>Divides</td><td><code>m | n</code> iff n = mk for some integer k. Any n is 3k, 3k + 1 or 3k + 2.</td></tr>
+      <tr><td>Prime</td><td>n &gt; 1 and its only positive divisors are 1 and n. 0 and 1 are not prime; 2 is the only even prime.</td></tr>
+      <tr><td>Closure facts</td><td>sums, differences and products of integers are integers; same for rationals (plus quotients, divisor ≠ 0)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Choosing a strategy</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Goal</th><th>Strategy</th><th>Opening line</th></tr></thead>
+    <tbody>
+      <tr><td class="f">∀x P(x)</td><td>Generalisation</td><td>"Let x be an arbitrary element of D." Use nothing about x beyond what you assumed.</td></tr>
+      <tr><td class="f">∃x P(x)</td><td>Existence proof</td><td>Give a specific a and show P(a).</td></tr>
+      <tr><td>disprove <span class="f">∀x P(x)</span></td><td>Counterexample</td><td>Give a specific a with ¬P(a).</td></tr>
+      <tr><td>disprove <span class="f">∃x P(x)</span></td><td>Prove <span class="f">∀x ¬P(x)</span></td><td>"Let x be arbitrary…"</td></tr>
+      <tr><td class="f">p → q</td><td>Direct</td><td>"Assume p." … "Therefore q."</td></tr>
+      <tr><td class="f">p → q</td><td>Contrapositive</td><td>"Assume ¬q." … "Therefore ¬p."</td></tr>
+      <tr><td class="f">p</td><td>Contradiction</td><td>"Assume ¬p." Derive some r ∧ ¬r.</td></tr>
+      <tr><td class="f">p ↔ q</td><td>Two directions</td><td>Prove p → q and q → p separately.</td></tr>
+      <tr><td class="f">p ∧ q</td><td>Both parts</td><td>Prove p, then prove q.</td></tr>
+      <tr><td class="f">p ∨ q</td><td>Via ¬p → q</td><td>"Assume ¬p." … "Therefore q."</td></tr>
+      <tr><td>claim about all n</td><td>Division into cases</td><td>Cover every case, e.g. n = 3k, 3k + 1, 3k + 2.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The format the course wants: list form</h3>
+  <div class="tpl"><span class="eyebrow">Claim: for all integers n, if n² is even then n is even</span>
+    <p>Proof by contrapositive. We prove: for all integers n, if n is odd then n² is odd.</p>
+    <div class="tbl" style="margin-bottom:8px"><table class="steps">
+      <tr><td class="n">1.</td><td>Let n be an arbitrary integer and assume n is odd.</td><td class="why">assumption</td></tr>
+      <tr><td class="n">2.</td><td>n = 2k + 1 for some integer k</td><td class="why">definition of odd</td></tr>
+      <tr><td class="n">3.</td><td>n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1</td><td class="why">algebra</td></tr>
+      <tr><td class="n">4.</td><td>2k² + 2k is an integer</td><td class="why">closure of ℤ under + and ·</td></tr>
+      <tr><td class="n">5.</td><td>n² is odd</td><td class="why">definition of odd</td></tr>
+    </table></div>
+    <p>Since n was arbitrary, every odd n has odd n². This is the contrapositive of the claim, so the claim holds. ∎</p>
+  </div>
+
+  <h3>Proof by contradiction: what to assume</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Claim</th><th>Assume</th></tr></thead>
+    <tbody>
+      <tr><td class="f">p</td><td class="f">¬p</td></tr>
+      <tr><td class="f">p → q</td><td class="f">p ∧ ¬q</td></tr>
+      <tr><td class="f">∀x P(x)</td><td class="f">∃x ¬P(x), and fix such an x</td></tr>
+      <tr><td>√3 is irrational</td><td>√3 = m/n with m, n integers without common factors</td></tr>
+      <tr><td>There are infinitely many primes</td><td>p₁, …, pₙ is the complete list; then look at N = p₁·p₂···pₙ + 1</td></tr>
+    </tbody>
+  </table></div>
+  <p>Derive a statement and its negation (for √3: m and n both divisible by 3, yet they have no common factor). Then "the assumption must be false, so the claim holds. ∎"</p>
+
+  <h3>Division into cases</h3>
+  <p>Claim: <code>3 | n³ + 3n² + 2n</code> for every integer n. Note n³ + 3n² + 2n = n(n + 1)(n + 2).</p>
+  <ul>
+    <li>n = 3k: the factor n is divisible by 3.</li>
+    <li>n = 3k + 1: the factor n + 2 = 3(k + 1).</li>
+    <li>n = 3k + 2: the factor n + 1 = 3(k + 1).</li>
+  </ul>
+  <p>Every integer falls in one of the three cases, so the claim holds. ∎</p>
+</section>
+
+<!-- ============ INDUCTION ============ -->
+<section id="induct" data-topic="Induction &amp; recursion">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">k+1</div>
+    <div><div class="eyebrow">Chapter 3.4 – 3.9 and 4.1.8 – 4.1.10</div><h2>Induction, recursion and trees</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: induction and recursion"></div>
+  </div>
+
+  <div class="tpl"><span class="eyebrow">Template: mathematical induction</span>
+    <ol>
+      <li><strong>Statement.</strong> "Let P(n) be the statement …. We prove ∀n ≥ n₀ P(n) by induction on n."</li>
+      <li><strong>Base case</strong> (n = n₀). Compute both sides and show P(n₀).</li>
+      <li><strong>Inductive case.</strong> "Let k ≥ n₀ be arbitrary and assume P(k)." This is the induction hypothesis (IH). Show P(k + 1): start from one side of P(k + 1), rewrite until P(k) appears, apply the IH and say so, then finish the algebra.</li>
+      <li><strong>Conclusion.</strong> "By the principle of mathematical induction, P(n) holds for all n ≥ n₀. ∎"</li>
+    </ol>
+  </div>
+
+  <h3>Worked: the Gauss sum</h3>
+  <p>P(n): <code>Σ<sub>i=1</sub><sup>n</sup> i = n(n + 1)/2</code> for n ≥ 1.</p>
+  <div class="tbl"><table class="steps">
+    <tr><td class="n">Base</td><td>n = 1: left side 1, right side 1·2/2 = 1.</td><td class="why">P(1) holds</td></tr>
+    <tr><td class="n">IH</td><td>Let k ≥ 1 be arbitrary and assume Σ<sub>i=1</sub><sup>k</sup> i = k(k + 1)/2.</td><td class="why">induction hypothesis</td></tr>
+    <tr><td class="n"></td><td>Σ<sub>i=1</sub><sup>k+1</sup> i = (Σ<sub>i=1</sub><sup>k</sup> i) + (k + 1)</td><td class="why">split off last term</td></tr>
+    <tr><td class="n"></td><td>= k(k + 1)/2 + (k + 1)</td><td class="why">by the IH</td></tr>
+    <tr><td class="n"></td><td>= (k + 1)(k + 2)/2</td><td class="why">factor out k + 1; this is P(k + 1)</td></tr>
+  </table></div>
+  <p>By induction P(n) holds for all n ≥ 1. ∎</p>
+  <p><strong>Divisibility trick</strong> (3 | 2<sup>2n</sup> − 1): IH gives 2<sup>2k</sup> − 1 = 3m. Then 2<sup>2(k+1)</sup> − 1 = 4·2<sup>2k</sup> − 4 + 4 − 1 = 4(2<sup>2k</sup> − 1) + 3 = 4·3m + 3 = 3(4m + 1). Subtract and add a constant so the IH expression appears.</p>
+
+  <h3>Sums worth knowing (all proved by induction in 3.4–3.5)</h3>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><td class="f">Σ<sub>i=1</sub><sup>n</sup> i = n(n + 1)/2</td><td class="f">Σ<sub>i=1</sub><sup>n</sup> i² = n(n + 1)(2n + 1)/6</td></tr>
+      <tr><td class="f">Σ<sub>i=1</sub><sup>n</sup> (2i − 1) = n²</td><td class="f">Σ<sub>i=0</sub><sup>n</sup> 2<sup>i</sup> = 2<sup>n+1</sup> − 1</td></tr>
+      <tr><td class="f">Σ<sub>i=0</sub><sup>n</sup> r<sup>i</sup> = (1 − r<sup>n+1</sup>)/(1 − r), r ≠ 0, 1</td><td class="f">Σ<sub>i=0</sub><sup>n</sup> 1/2<sup>i</sup> = 2 − 1/2<sup>n</sup></td></tr>
+      <tr><td class="f" colspan="2">Σ<sub>i=1</sub><sup>n</sup> i·2<sup>i−1</sup> = (n − 1)·2<sup>n</sup> + 1</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Strong induction</h3>
+  <p>Inductive case: "Let k be arbitrary and assume P(n₀), P(n₀ + 1), …, P(k). Show P(k + 1)." Use it when P(k + 1) depends on smaller cases than just k: writing k + 1 = ab with 2 ≤ a, b ≤ k (every n &gt; 1 is a product of primes), trees split into subtrees of any smaller size, or a recursion like f<sub>n</sub> = f<sub>n−1</sub> + f<sub>n−2</sub>.</p>
+  <div class="trap"><span class="eyebrow">Trap</span><p>If the step reaches back two places (k − 1 and k − 2), you need two base cases. The Fibonacci bound f<sub>n</sub> &gt; 1.5<sup>n−1</sup> for n ≥ 6 checks n = 6 and n = 7 before the step for k &gt; 7. Also: "assume P(k) for all k" assumes what you are proving. Fix k first.</p></div>
+
+  <h3>Recursive definitions</h3>
+  <div class="cols">
+    <div>
+      <p><code>0! = 1</code>, <code>n! = n · (n − 1)!</code> for n &gt; 0.</p>
+      <p>Fibonacci: f₀ = 0, f₁ = 1, f<sub>n</sub> = f<sub>n−1</sub> + f<sub>n−2</sub>: 0, 1, 1, 2, 3, 5, 8, 13, …</p>
+    </div>
+    <div>
+      <p>The base case of the recursion becomes the base case of the induction; the recursive call becomes the inductive case (correctness proof of <code>factorial</code>, Theorem 3.11).</p>
+    </div>
+  </div>
+
+  <h3>Structural induction</h3>
+  <p>A recursively defined set has basis rules, constructor rules and an exclusivity clause ("nothing else is in the set"). Example, the formulas PROP: atoms p<sub>i</sub> ∈ PROP; if x ∈ PROP then ¬x ∈ PROP; if x, y ∈ PROP then (x ∗ y) ∈ PROP for ∗ ∈ {∧, ∨, →, ↔}.</p>
+  <div class="tpl"><span class="eyebrow">Template: structural induction</span>
+    <ol>
+      <li>"Let P(φ) be …. We prove ∀φ ∈ PROP P(φ) by structural induction."</li>
+      <li><strong>Base case</strong> for every basis rule.</li>
+      <li><strong>Inductive case</strong> for every constructor rule: assume P for the parts (IH), show P for the new element.</li>
+      <li>"By the principle of structural induction, P holds for every element of the set. ∎"</li>
+    </ol>
+  </div>
+  <div class="mpanel"><table class="chain">
+    <tr><td>Base</td><td>l(p<sub>i</sub>) = 0 = r(p<sub>i</sub>)</td><td class="why">no parentheses in an atom</td></tr>
+    <tr><td>¬ rule</td><td>l(¬x) = l(x) = r(x) = r(¬x)</td><td class="why">Negation rule, IH, Negation rule</td></tr>
+    <tr><td>∗ rule</td><td>l((x ∗ y)) = 1 + l(x) + l(y) = 1 + r(x) + r(y) = r((x ∗ y))</td><td class="why">Binary rule, IH, Binary rule</td></tr>
+  </table></div>
+  <p class="small">l(φ) and r(φ) count left and right parentheses: every formula has as many of each.</p>
+
+  <h3>Trees</h3>
+  <div class="cols">
+    <div>
+      <ul>
+        <li><strong>Root</strong>: node with no parent. <strong>Leaf</strong>: node with no children.</li>
+        <li><strong>Siblings of x</strong>: the other children of x's parent.</li>
+        <li><strong>Descendants of x</strong>: x itself and the descendants of its children. <strong>Ancestors</strong>: x itself and the ancestors of its parent.</li>
+        <li><strong>Binary tree</strong>: every node has at most 2 children.</li>
+        <li><strong>Height</strong>: largest number of vertices on a path from a leaf to the root, not counting the leaf. A single node has height 0.</li>
+      </ul>
+    </div>
+    <div>
+      <p>Formal set TREE (values from D):</p>
+      <ul>
+        <li>∅ ∈ TREE</li>
+        <li>(x, ∅) ∈ TREE for x ∈ D (leaf)</li>
+        <li>(x, (T₁, …, T<sub>k</sub>)) ∈ TREE if x ∈ D and every T<sub>i</sub> ∈ TREE</li>
+        <li>nothing else</li>
+      </ul>
+      <p>Height: h(∅) = 0, h((x, ∅)) = 0, otherwise 1 + max h(T<sub>i</sub>). A binary tree of height h has at most 2<sup>h</sup> leaves (structural induction with cases h₁ &gt; h₂, h₁ = h₂, h₁ &lt; h₂).</p>
+    </div>
+  </div>
+
+  <h3>Loop invariants (3.9)</h3>
+  <div class="cols">
+    <div>
+      <ol>
+        <li><strong>Initialisation</strong>: the invariant holds before the first iteration.</li>
+        <li><strong>Maintenance</strong>: if it holds before an iteration, it holds after it.</li>
+        <li><strong>Termination</strong>: the guard becomes false after finitely many steps.</li>
+        <li><strong>Correctness</strong>: invariant ∧ ¬guard implies the post-condition.</li>
+      </ol>
+    </div>
+    <div class="mpanel" style="margin-top:0">
+      <table class="chain">
+        <tr><td>r = 0; b = n</td></tr>
+        <tr><td>while (b &gt;= a) { b -= a; r += 1; }</td></tr>
+        <tr><td class="why" style="padding-left:0">Invariant r·a + b = n. On exit 0 ≤ b &lt; a, so r = ⌊n/a⌋.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SETS ============ -->
+<section id="sets" data-topic="Sets">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">⊆</div>
+    <div><div class="eyebrow">Chapter 4.1 – 4.2</div><h2>Sets</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: sets"></div>
+  </div>
+
+  <p>A set is determined by its elements only: order and repetition do not matter, so {a, b, a} = {b, a}. A tuple (a, b) is ordered: (a, b) = (c, d) iff a = c and b = d.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Notation</th><th>Meaning</th><th>As logic</th></tr></thead>
+    <tbody>
+      <tr><td class="f">A ⊆ B</td><td>subset</td><td class="f">∀x(x ∈ A → x ∈ B)</td></tr>
+      <tr><td class="f">A ⊊ B</td><td>proper subset</td><td class="f">A ⊆ B ∧ A ≠ B</td></tr>
+      <tr><td class="f">A = B</td><td>same elements</td><td class="f">A ⊆ B ∧ B ⊆ A</td></tr>
+      <tr><td class="f">A ∪ B</td><td>union</td><td class="f">{x | x ∈ A ∨ x ∈ B}</td></tr>
+      <tr><td class="f">A ∩ B</td><td>intersection</td><td class="f">{x | x ∈ A ∧ x ∈ B}</td></tr>
+      <tr><td class="f">A ∖ B</td><td>difference (also A − B)</td><td class="f">{x | x ∈ A ∧ x ∉ B}</td></tr>
+      <tr><td class="f">A Δ B</td><td>symmetric difference</td><td class="f">{x | (x ∈ A) ⊕ (x ∈ B)} = (A ∖ B) ∪ (B ∖ A)</td></tr>
+      <tr><td class="f"><span class="ov">A</span></td><td>complement in universe U (also A<sup>c</sup>)</td><td class="f">{x ∈ U | x ∉ A}</td></tr>
+      <tr><td class="f">P(A)</td><td>power set</td><td class="f">{X | X ⊆ A}</td></tr>
+      <tr><td class="f">A × B</td><td>Cartesian product</td><td class="f">{(a, b) | a ∈ A ∧ b ∈ B}</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cols">
+    <div>
+      <h3>Quick example</h3>
+      <p>A = {a, b, c}, B = {b, d}, C = {d, e, f}:</p>
+      <ul>
+        <li>A ∪ B = {a, b, c, d}, A ∩ B = {b}</li>
+        <li>A ∖ B = {a, c}, B ∖ A = {d}, A Δ B = {a, c, d}</li>
+        <li>A ∩ C = ∅, so A and C are disjoint</li>
+        <li>|A × B| = 3 · 2 = 6</li>
+        <li>P({a, b}) = {∅, {a}, {b}, {a, b}}</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Sets of sets (with a ≠ b)</h3>
+      <ul>
+        <li><code>{b} ∈ {a, {b}}</code> is true</li>
+        <li><code>{b} ⊆ {a, {b}}</code> is false: it needs b ∈ {a, {b}}</li>
+        <li><code>{{b}} ⊆ {a, {b}}</code> and <code>{a} ⊆ {a, {b}}</code> are true</li>
+        <li><code>∅ ⊆ A</code> always; <code>∅ ∈ A</code> only if ∅ is listed</li>
+        <li>P(∅) = {∅} has 1 element; P(P(∅)) = {∅, {∅}} has 2</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Logic ↔ set theory</h3>
+  <div class="tbl"><table class="tt">
+    <thead><tr><th>Logic</th><th>T</th><th>F</th><th>∧</th><th>∨</th><th>¬</th><th>⊕</th><th>→ (as a claim)</th><th>≡</th></tr></thead>
+    <tbody><tr><td>Sets</td><td>U</td><td>∅</td><td>∩</td><td>∪</td><td>complement</td><td>Δ</td><td>⊆</td><td>=</td></tr></tbody>
+  </table></div>
+  <p>So every Boolean law has a set version (Figure 4.4): commutative, associative, distributive, idempotent, <span class="f">A ∪ <span class="ov">A</span> = U</span>, <span class="f">A ∩ <span class="ov">A</span> = ∅</span>, double complement, and DeMorgan: <span class="f"><span class="ov">A ∪ B</span> = <span class="ov">A</span> ∩ <span class="ov">B</span></span> and <span class="f"><span class="ov">A ∩ B</span> = <span class="ov">A</span> ∪ <span class="ov">B</span></span>. Without parentheses ∩ binds before ∪.</p>
+
+  <div class="tpl"><span class="eyebrow">Template: proving set statements</span>
+    <ol>
+      <li><strong>A ⊆ B:</strong> "Let x be arbitrary and assume x ∈ A. … Hence x ∈ B. Since x was arbitrary, A ⊆ B."</li>
+      <li><strong>A = B:</strong> prove A ⊆ B and B ⊆ A (Theorem 4.1), or give a chain x ∈ A ↔ … ↔ x ∈ B with a reason per step.</li>
+      <li><strong>Not equal / not a subset:</strong> give specific sets and an element that breaks it.</li>
+      <li>A Venn diagram helps you think but is not a proof.</li>
+    </ol>
+  </div>
+  <div class="mpanel"><table class="chain">
+    <tr><td></td><td>x ∈ A ∪ (B ∩ C)</td><td class="why"></td></tr>
+    <tr><td>↔</td><td>x ∈ A ∨ (x ∈ B ∧ x ∈ C)</td><td class="why">definitions of ∪, ∩</td></tr>
+    <tr><td>↔</td><td>(x ∈ A ∨ x ∈ B) ∧ (x ∈ A ∨ x ∈ C)</td><td class="why">distributivity of ∨</td></tr>
+    <tr><td>↔</td><td>x ∈ A ∪ B ∧ x ∈ A ∪ C</td><td class="why">definition of ∪</td></tr>
+    <tr><td>↔</td><td>x ∈ (A ∪ B) ∩ (A ∪ C)</td><td class="why">definition of ∩</td></tr>
+  </table></div>
+  <p class="small">Russell's paradox shows there is no set of all sets, which is why <code>{x | P(x)}</code> needs a set as domain and why a complement needs a universe U.</p>
+
+  <p class="small">Graphs (4.3) are sets too: a graph is a pair of sets (V, E). They have their own section: <a href="#graphs">Graphs and topological ordering</a>.</p>
+</section>
+
+<!-- ============ GRAPHS ============ -->
+<section id="graphs" data-topic="Graphs">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">G</div>
+    <div><div class="eyebrow">Chapter 4.3 and 4.5.5</div><h2>Graphs and topological ordering</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: graphs"></div>
+  </div>
+
+  <p>A <strong>graph</strong> is a 2-tuple of sets <code>G = (V, E)</code>: V is the set of <strong>vertices</strong> (nodes) and E the set of <strong>edges</strong>. Two vertices joined by an edge are <strong>neighbours</strong>.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Undirected graph</td><td>an edge is a set <span class="f">{u, v}</span> with u ≠ v, so <span class="f">E ⊆ {{u, v} | u ≠ v ∧ u, v ∈ V}</span>. {s, t} and {t, s} are the same edge.</td></tr>
+      <tr><td>Directed graph</td><td>an edge is an ordered pair <span class="f">(u, v)</span> from origin u to destination v, so <span class="f">E ⊆ V × V</span>. (s, t) and (t, s) are different edges.</td></tr>
+      <tr><td>Path</td><td>a sequence of edges where each edge starts where the previous one ended, e.g. <span class="f">π = ((s, b), (b, t))</span> from s to t</td></tr>
+      <tr><td>Cycle</td><td>a path that ends at the vertex where it started</td></tr>
+      <tr><td>DAG</td><td>directed acyclic graph: a directed graph without cycles</td></tr>
+      <tr><td>Weighted graph</td><td>a graph plus a weight function <span class="f">w: E → ℕ</span> (e.g. travel time). The weight of a path is the sum of its edge weights.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="figs">
+    <figure class="fig">
+      <svg viewBox="0 0 200 150" role="img" aria-label="Undirected graph G1: vertices s, a, t, b; edges s–t, s–b, a–b, b–t">
+        <line class="ge" x1="40" y1="51" x2="40" y2="104"/>
+        <line class="ge" x1="53.1" y1="44.2" x2="146.9" y2="110.8"/>
+        <line class="ge" x1="160" y1="51" x2="160" y2="104"/>
+        <line class="ge" x1="144" y1="120" x2="56" y2="120"/>
+        <g class="gn">
+          <circle cx="40" cy="35" r="16"/><text x="40" y="35">s</text>
+          <circle cx="160" cy="35" r="16"/><text x="160" y="35">a</text>
+          <circle cx="40" cy="120" r="16"/><text x="40" y="120">t</text>
+          <circle cx="160" cy="120" r="16"/><text x="160" y="120">b</text>
+        </g>
+      </svg>
+      <figcaption><b>G₁, undirected</b><span class="f">({s, a, b, t}, {{s,t}, {s,b}, {a,b}, {b,t}})</span></figcaption>
+    </figure>
+    <figure class="fig">
+      <svg viewBox="0 0 200 150" role="img" aria-label="Directed graph G2: edges s to t, s to b, a to b, b to t">
+        <defs><marker id="ah-g2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+        <line class="ge" x1="40" y1="51" x2="40" y2="104" marker-end="url(#ah-g2)"/>
+        <line class="ge" x1="53.1" y1="44.2" x2="146.9" y2="110.8" marker-end="url(#ah-g2)"/>
+        <line class="ge" x1="160" y1="51" x2="160" y2="104" marker-end="url(#ah-g2)"/>
+        <line class="ge" x1="144" y1="120" x2="56" y2="120" marker-end="url(#ah-g2)"/>
+        <g class="gn">
+          <circle cx="40" cy="35" r="16"/><text x="40" y="35">s</text>
+          <circle cx="160" cy="35" r="16"/><text x="160" y="35">a</text>
+          <circle cx="40" cy="120" r="16"/><text x="40" y="120">t</text>
+          <circle cx="160" cy="120" r="16"/><text x="160" y="120">b</text>
+        </g>
+      </svg>
+      <figcaption><b>G₂, directed</b><span class="f">({s, a, b, t}, {(s,t), (s,b), (a,b), (b,t)})</span></figcaption>
+    </figure>
+    <figure class="fig">
+      <svg viewBox="0 0 200 150" role="img" aria-label="G2 with weights: s to t 10, s to b 3, a to b 7, b to t 5">
+        <defs><marker id="ah-w" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+        <line class="ge" x1="40" y1="51" x2="40" y2="104" marker-end="url(#ah-w)"/>
+        <line class="ge" x1="53.1" y1="44.2" x2="146.9" y2="110.8" marker-end="url(#ah-w)"/>
+        <line class="ge" x1="160" y1="51" x2="160" y2="104" marker-end="url(#ah-w)"/>
+        <line class="ge" x1="144" y1="120" x2="56" y2="120" marker-end="url(#ah-w)"/>
+        <text class="gw" x="28" y="82" text-anchor="end">10</text>
+        <text class="gw" x="108" y="68" text-anchor="middle">3</text>
+        <text class="gw" x="172" y="82" text-anchor="start">7</text>
+        <text class="gw" x="100" y="138" text-anchor="middle">5</text>
+        <g class="gn">
+          <circle cx="40" cy="35" r="16"/><text x="40" y="35">s</text>
+          <circle cx="160" cy="35" r="16"/><text x="160" y="35">a</text>
+          <circle cx="40" cy="120" r="16"/><text x="40" y="120">t</text>
+          <circle cx="160" cy="120" r="16"/><text x="160" y="120">b</text>
+        </g>
+      </svg>
+      <figcaption><b>G₂ with a weight function w</b><span>Shortest path from s to t: ((s, b), (b, t)) with weight 3 + 5 = 8, shorter than the direct edge (10).</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="trap"><span class="eyebrow">Trap</span><p>Use curly braces for undirected edges and round brackets for directed ones, because that is the whole difference between a set and an ordered pair. A path is written as a sequence of edges, not of vertices.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>Useful counts (n vertices)</h3>
+      <ul>
+        <li>Undirected: at most n(n − 1)/2 edges (every pair once).</li>
+        <li>Directed: at most n² edges, or n(n − 1) without loops (v, v).</li>
+        <li>A DAG: at most n(n − 1)/2 edges (every pair, one direction).</li>
+        <li>A tree with n nodes has n − 1 edges.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Graphs are relations</h3>
+      <p>For a directed graph, E ⊆ V × V is a binary relation on V. So a relation can be drawn as a graph with an arrow a → b whenever a R b. Its transitive closure R* has a → b exactly when b is reachable from a in one or more steps. See <a href="#rel">Relations</a>.</p>
+    </div>
+  </div>
+
+  <h3>Topological ordering</h3>
+  <p>A <strong>topological ordering</strong> numbers the vertices v₁, v₂, …, v<sub>|V|</sub> so that for every edge <span class="f">(v<sub>x</sub>, v<sub>y</sub>) ∈ E</span> we have x &lt; y. In words: list the vertices so that every arrow points forward in the list. The book's motivation is ordering tasks with precedence constraints, such as "read the book and watch the video before doing the homework".</p>
+  <div class="tpl"><span class="eyebrow">Algorithm (4.3.2)</span>
+    <ol>
+      <li>Pick a vertex without incoming edges.</li>
+      <li>Add it to the ordering, then remove it and its outgoing edges from the graph.</li>
+      <li>While there are vertices left, go back to step 1.</li>
+    </ol>
+  </div>
+
+  <figure class="fig wide">
+    <svg viewBox="0 0 300 170" role="img" aria-label="DAG of study tasks: R to E, R to H, V to H, E to X, H to X">
+      <defs><marker id="ah-t" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+      <line class="ge" x1="57" y1="45" x2="133" y2="45" marker-end="url(#ah-t)"/>
+      <line class="ge" x1="57" y1="125" x2="133" y2="125" marker-end="url(#ah-t)"/>
+      <line class="ge" x1="53.75" y1="55" x2="136.25" y2="115" marker-end="url(#ah-t)"/>
+      <line class="ge" x1="165.98" y1="50.81" x2="244.02" y2="79.19" marker-end="url(#ah-t)"/>
+      <line class="ge" x1="165.98" y1="119.19" x2="244.02" y2="90.81" marker-end="url(#ah-t)"/>
+      <g class="gn">
+        <circle cx="40" cy="45" r="17"/><text x="40" y="45">R</text>
+        <circle cx="40" cy="125" r="17"/><text x="40" y="125">V</text>
+        <circle cx="150" cy="45" r="17"/><text x="150" y="45">E</text>
+        <circle cx="150" cy="125" r="17"/><text x="150" y="125">H</text>
+        <circle cx="260" cy="85" r="17"/><text x="260" y="85">X</text>
+      </g>
+      <text class="gcap" x="40" y="16">Read chapter</text>
+      <text class="gcap" x="40" y="157">Watch video</text>
+      <text class="gcap" x="150" y="16">Exercises</text>
+      <text class="gcap" x="150" y="157">Homework</text>
+      <text class="gcap" x="260" y="117">Exam</text>
+    </svg>
+    <figcaption><b>Example DAG</b><span class="f">E = {(R,E), (R,H), (V,H), (E,X), (H,X)}</span></figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Step</th><th>No incoming edges</th><th>Take</th><th>Remove</th><th>Ordering so far</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="f">R, V</td><td class="f">R</td><td class="f">(R,E), (R,H)</td><td class="f">R</td></tr>
+      <tr><td>2</td><td class="f">V, E</td><td class="f">E</td><td class="f">(E,X)</td><td class="f">R, E</td></tr>
+      <tr><td>3</td><td class="f">V</td><td class="f">V</td><td class="f">(V,H)</td><td class="f">R, E, V</td></tr>
+      <tr><td>4</td><td class="f">H</td><td class="f">H</td><td class="f">(H,X)</td><td class="f">R, E, V, H</td></tr>
+      <tr><td>5</td><td class="f">X</td><td class="f">X</td><td class="f">none</td><td class="f">R, E, V, H, X</td></tr>
+    </tbody>
+  </table></div>
+  <p>Check: every edge points forward in R, E, V, H, X. When more than one vertex has no incoming edges you may take any of them, so orderings are usually <strong>not unique</strong>: V, R, E, H, X is also valid (this DAG has 5 in total, and X is always last).</p>
+  <div class="trap"><span class="eyebrow">Trap</span><p>A graph with a cycle has <strong>no</strong> topological ordering: for a cycle v₁ → v₂ → … → v₁, v₁ would have to come before itself. So "find a topological ordering" only makes sense for a DAG.</p></div>
+
+  <h3>Proof: every DAG has a vertex without incoming edges (exercise 4.3.4)</h3>
+  <p>Claim: every finite, non-empty DAG G = (V, E) has a vertex without incoming edges. Proof by contradiction.</p>
+  <div class="tbl"><table class="steps">
+    <tr><td class="n">1.</td><td>Assume every vertex of G has an incoming edge.</td><td class="why">assumption for contradiction</td></tr>
+    <tr><td class="n">2.</td><td>Pick any vertex v₀.</td><td class="why">V is non-empty</td></tr>
+    <tr><td class="n">3.</td><td>v₀ has an incoming edge (v₁, v₀), v₁ has an incoming edge (v₂, v₁), and so on, giving v₀, v₁, …, v<sub>|V|</sub>.</td><td class="why">from 1, applied |V| times</td></tr>
+    <tr><td class="n">4.</td><td>That is |V| + 1 vertices, so some vertex occurs twice: vᵢ = vⱼ with i &lt; j.</td><td class="why">pigeonhole principle</td></tr>
+    <tr><td class="n">5.</td><td>Following the edges forward, vⱼ → vⱼ₋₁ → … → vᵢ = vⱼ is a cycle.</td><td class="why">definition of cycle</td></tr>
+    <tr><td class="n">6.</td><td>This contradicts that G is acyclic.</td><td class="why">definition of DAG</td></tr>
+  </table></div>
+  <p>So the assumption is false and some vertex has no incoming edges. ∎ This is also why the algorithm never gets stuck: removing a vertex cannot create a cycle, so what is left is again a DAG.</p>
+
+  <h3>Quick check</h3>
+  <div class="qa">
+    <details><summary><span class="tag">Graphs</span><span>Give a topological ordering of G₂ above.</span><span class="chev"></span></summary>
+      <div class="ans"><p>s, a, b, t (or a, s, b, t). Check: (s,t), (s,b), (a,b) and (b,t) all point forward.</p></div></details>
+    <details><summary><span class="tag">Graphs</span><span>Edges (a,b), (b,c), (c,a): is there a topological ordering?</span><span class="chev"></span></summary>
+      <div class="ans"><p>No. a → b → c → a is a cycle, so a would have to come before itself. Running the algorithm, step 1 already finds no vertex without incoming edges.</p></div></details>
+    <details><summary><span class="tag">Graphs</span><span>In an undirected graph, are {s, t} and {t, s} different edges? And (s, t) and (t, s) in a directed graph?</span><span class="chev"></span></summary>
+      <div class="ans"><p>{s, t} = {t, s} is one edge, because sets have no order. (s, t) ≠ (t, s) are two different edges, because ordered pairs do.</p></div></details>
+    <details><summary><span class="tag">Graphs</span><span>Can a DAG with 8 vertices have 13 edges (exercise 4.3.2)?</span><span class="chev"></span></summary>
+      <div class="ans"><p>Yes. A DAG on 8 vertices can have up to 8 · 7 / 2 = 28 edges. Number the vertices 1 to 8, only draw edges from smaller to larger numbers, and pick any 13 of them. That numbering is then a topological ordering.</p></div></details>
+  </div>
+</section>
+
+<!-- ============ NUMBER SETS ============ -->
+<section id="nums" data-topic="Number sets">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">ℝ</div>
+    <div><div class="eyebrow">Chapter 3.2.2 and 4.7</div><h2>Number sets</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: number sets"></div>
+  </div>
+
+  <p>Each set sits inside the next: <code>ℕ ⊊ ℤ ⊊ ℚ ⊊ ℝ</code>. The irrational numbers are what is left of ℝ after removing ℚ, so <code>ℝ = ℚ ∪ (ℝ ∖ ℚ)</code> and the two parts are disjoint.</p>
+
+  <div class="nest" role="img" aria-label="Nested sets: the naturals inside the integers, inside the rationals, inside the reals; the irrationals are the rest of the reals">
+    <div class="ring r-R">
+      <span class="lbl"><b>ℝ</b>real numbers</span>
+      <div class="split">
+        <div class="ring r-Q">
+          <span class="lbl"><b>ℚ</b>rational numbers</span>
+          <span class="ex">1/2 · −7/3 · 0.25 · 0.333…</span>
+          <div class="ring r-Z">
+            <span class="lbl"><b>ℤ</b>integers</span>
+            <span class="ex">−3 · −2 · −1</span>
+            <div class="ring r-N">
+              <span class="lbl"><b>ℕ</b>natural numbers</span>
+              <span class="ex">0 · 1 · 2 · 3 · …</span>
+            </div>
+          </div>
+        </div>
+        <div class="irr">
+          <span class="lbl"><b>ℝ ∖ ℚ</b>irrational numbers</span>
+          <span class="ex">√2 · √3 · π</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Symbol</th><th>Name</th><th>Elements</th><th>Definition</th><th>Size</th></tr></thead>
+    <tbody>
+      <tr><td class="f">ℕ</td><td>natural numbers</td><td class="f">0, 1, 2, 3, …</td><td>starts at 0 in this book</td><td>countably infinite</td></tr>
+      <tr><td class="f">ℤ⁺</td><td>positive integers</td><td class="f">1, 2, 3, …</td><td><span class="f">ℕ ∖ {0}</span></td><td>countably infinite</td></tr>
+      <tr><td class="f">ℤ</td><td>integers</td><td class="f">…, −2, −1, 0, 1, 2, …</td><td>whole numbers, negative too</td><td>countably infinite</td></tr>
+      <tr><td class="f">ℚ</td><td>rational numbers</td><td class="f">1/3, −6/5, 6 = 6/1</td><td><span class="f">{m/n | m, n ∈ ℤ, n ≠ 0}</span></td><td>countably infinite</td></tr>
+      <tr><td class="f">ℝ</td><td>real numbers</td><td class="f">0.5, √2, π, −4</td><td>any decimal, possibly with infinitely many digits</td><td><strong>uncountable</strong></td></tr>
+      <tr><td class="f">ℝ ∖ ℚ</td><td>irrational numbers</td><td class="f">√2, √3, π</td><td>real, but not a ratio of integers</td><td><strong>uncountable</strong></td></tr>
+      <tr><td class="f">N<sub>n</sub></td><td>first n naturals</td><td class="f">{0, 1, …, n − 1}</td><td>used to define |A| = n</td><td>finite, n elements</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap"><span class="eyebrow">Trap</span><p>In this book 0 ∈ ℕ. If you mean "positive integers", write ℤ⁺. Other books sometimes start ℕ at 1, so stick to the course's convention. And 3/0 is not a number at all, rational or otherwise.</p></div>
+
+  <h3>Where does each number belong?</h3>
+  <div class="tbl"><table class="tt">
+    <thead><tr><th>Number</th><th>ℕ</th><th>ℤ</th><th>ℚ</th><th>ℝ</th><th style="text-align:left">Why</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td style="text-align:left">0 = 0/1</td></tr>
+      <tr><td>−4</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td style="text-align:left">negative, so not natural</td></tr>
+      <tr><td>6</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td style="text-align:left">6 = 6/1 = −12/−2</td></tr>
+      <tr><td>0.75</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td><td style="text-align:left">3/4</td></tr>
+      <tr><td>0.333…</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td><td style="text-align:left">1/3, a repeating decimal</td></tr>
+      <tr><td>√(27/12)</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td><td style="text-align:left">27/12 = 9/4, and √(9/4) = 3/2</td></tr>
+      <tr><td>√2</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td style="text-align:left">irrational (contradiction proof, like √3)</td></tr>
+      <tr><td>π</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td style="text-align:left">irrational; 22/7 is only an approximation</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Closure: does the result stay in the set?</h3>
+  <p>"Closed under +" means: adding two members always gives a member. These facts are the justifications you write in proofs ("the sum of integers is an integer"). Every ✗ comes with a counterexample.</p>
+  <div class="tbl"><table class="tt">
+    <thead><tr><th>Set</th><th>a + b</th><th>a − b</th><th>a · b</th><th>a ÷ b (b ≠ 0)</th></tr></thead>
+    <tbody>
+      <tr><td>ℕ</td><td class="yes">✓</td><td class="no">✗ 2 − 3 = −1</td><td class="yes">✓</td><td class="no">✗ 1 ÷ 2</td></tr>
+      <tr><td>ℤ</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗ 1 ÷ 2</td></tr>
+      <tr><td>ℚ</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>ℝ</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>ℝ ∖ ℚ</td><td class="no">✗ √2 + (−√2) = 0</td><td class="no">✗ √2 − √2 = 0</td><td class="no">✗ √2 · √2 = 2</td><td class="no">✗ √2 ÷ √2 = 1</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Mixed cases (exercise 3.3.2): rational + irrational is always irrational, and a non-zero rational times an irrational is always irrational. Both are proved by contradiction.</p>
+
+  <h3>Same formula, different sets</h3>
+  <p>Whether f is a function, injective or surjective depends on the domain and range, not only on the formula. First check that every output actually lands in B.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Formula</th><th>as ℕ → ℕ</th><th>as ℤ → ℤ</th><th>as ℝ → ℝ</th></tr></thead>
+    <tbody>
+      <tr><td class="f">n + 3</td><td>injective only (0, 1, 2 never reached)</td><td><strong>bijection</strong></td><td><strong>bijection</strong></td></tr>
+      <tr><td class="f">2n</td><td>injective only (odd numbers missed)</td><td>injective only (1 missed)</td><td><strong>bijection</strong> (a = b/2)</td></tr>
+      <tr><td class="f">n²</td><td>injective only (2 missed)</td><td>neither (f(−2) = f(2); −1 missed)</td><td>neither</td></tr>
+      <tr><td class="f">3n − 1</td><td class="no">not a function: f(0) = −1 ∉ ℕ</td><td>injective only (0 missed)</td><td><strong>bijection</strong> (a = (b + 1)/3)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Handy facts</h3>
+  <div class="cols">
+    <ul>
+      <li>A decimal that stops or repeats (0.25, 0.333…) is rational. One that never stops and never repeats (√2, π) is irrational.</li>
+      <li>Between two different reals there is always another real (their average), and the same holds for rationals. Not for integers: nothing lies between 3 and 4 (exercise 3.2.4).</li>
+    </ul>
+    <ul>
+      <li>ℕ, ℤ⁺, ℤ and ℚ all have a bijection from ℕ (see <a href="#card">Cardinality</a>). ℝ and ℝ ∖ ℚ do not, so a bijection ℕ → ℝ does not exist.</li>
+      <li>Even, odd, divides and prime are defined on ℤ (see <a href="#proof">Proof techniques</a>).</li>
+    </ul>
+  </div>
+
+  <h3>Quick check</h3>
+  <div class="qa">
+    <details><summary><span class="tag">Number sets</span><span>Is 0 ∈ ℤ⁺? Is 0 ∈ ℕ?</span><span class="chev"></span></summary>
+      <div class="ans"><p>0 ∉ ℤ⁺, because ℤ⁺ starts at 1. But 0 ∈ ℕ in this book.</p></div></details>
+    <details><summary><span class="tag">Number sets</span><span>Is the sum of two irrational numbers always irrational?</span><span class="chev"></span></summary>
+      <div class="ans"><p>No. Counterexample: √2 + (−√2) = 0, which is rational.</p></div></details>
+    <details><summary><span class="tag">Number sets</span><span>Is f: ℕ → ℕ, f(n) = n − 1 a function?</span><span class="chev"></span></summary>
+      <div class="ans"><p>No. f(0) = −1 ∉ ℕ, so 0 gets no value in the range ℕ. As ℤ → ℤ it is a bijection.</p></div></details>
+    <details><summary><span class="tag">Number sets</span><span>Is ℕ ⊆ ℚ? Is ℚ ⊆ ℤ?</span><span class="chev"></span></summary>
+      <div class="ans"><p>ℕ ⊆ ℚ is true: every n equals n/1. ℚ ⊆ ℤ is false: 1/2 ∈ ℚ but 1/2 ∉ ℤ.</p></div></details>
+  </div>
+</section>
+
+<!-- ============ FUNCTIONS ============ -->
+<section id="func" data-topic="Functions">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">f</div>
+    <div><div class="eyebrow">Chapter 4.5</div><h2>Functions</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: functions"></div>
+  </div>
+
+  <p>A function <code>f: A → B</code> is a subset of A × B that contains, for every a ∈ A, exactly one pair (a, b). Then f(a) = b. A is the <strong>domain</strong>, B the <strong>range</strong>, and the <strong>image</strong> is {f(a) | a ∈ A} ⊆ B.</p>
+  <div class="trap"><span class="eyebrow">Trap</span><p>In this book "range" means the whole set B (what other books call the codomain). Calculus uses "range" for the image.</p></div>
+  <p>Example with X = {a, b}, Y = {1, 2, 3}: {(a, 2), (b, 1)} is a function X → Y. {(1, a), (2, b)} is not a function Y → X (no value for 3), and {(a, 1), (a, 2), (b, 3)} is not a function X → Y (two values for a).</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Property</th><th>Definition</th><th>How to prove it</th><th>How to disprove it</th></tr></thead>
+    <tbody>
+      <tr><td>Injective (one-to-one)</td><td class="f">∀x∀y(f(x) = f(y) → x = y)</td><td>Let x, y ∈ A be arbitrary with f(x) = f(y); derive x = y.</td><td>Give x ≠ y with f(x) = f(y).</td></tr>
+      <tr><td>Surjective (onto)</td><td class="f">∀b ∈ B ∃a ∈ A (f(a) = b)</td><td>Let b ∈ B be arbitrary; solve f(a) = b for a; check a ∈ A; verify f(a) = b.</td><td>Give b ∈ B and show f(a) = b has no solution in A.</td></tr>
+      <tr><td>Bijective</td><td>injective and surjective</td><td>Prove both.</td><td>Break either one.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Function</th><th>Injective</th><th>Surjective</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="f">f: ℤ → ℤ, f(n) = n − 52</td><td class="yes">yes</td><td class="yes">yes</td><td>x − 52 = y − 52 gives x = y; for b take a = b + 52</td></tr>
+      <tr><td class="f">g: ℤ → ℤ, g(n) = 2n</td><td class="yes">yes</td><td class="no">no</td><td>2n = 1 has no integer solution</td></tr>
+      <tr><td class="f">h: ℤ → ℤ, h(n) = n²</td><td class="no">no</td><td class="no">no</td><td>h(−2) = h(2); −1 is never a square</td></tr>
+      <tr><td class="f">s: ℕ → ℕ, s(n) = n²</td><td class="yes">yes</td><td class="no">no</td><td>squares of non-negatives differ; 2 is not a square</td></tr>
+      <tr><td class="f">f: ℕ → ℤ, f(n) = n − 52</td><td class="yes">yes</td><td class="no">no</td><td>−73 would need a = −21 ∉ ℕ</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cols">
+    <div>
+      <h3>Composition</h3>
+      <p>For f: A → B and g: B → C, <code>(g ∘ f)(a) = g(f(a))</code>: apply f first. Composition is associative but not commutative: with s(n) = n² and r(n) = 3n + 1, (r ∘ s)(n) = 3n² + 1 while (s ∘ r)(n) = (3n + 1)².</p>
+      <ul>
+        <li>g ∘ f injective ⇒ f injective</li>
+        <li>g ∘ f surjective ⇒ g surjective</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Functions as objects</h3>
+      <p><code>B<sup>A</sup></code> is the set of all functions A → B, so <code>f: A → B</code> means <code>f ∈ B<sup>A</sup></code>, and |B<sup>A</sup>| = |B|<sup>|A|</sup>.</p>
+      <p>On recursive structures, define functions with one case per rule, e.g. the tree height h above. A weight function w: E → ℕ turns a graph into a weighted graph (shortest paths).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARDINALITY ============ -->
+<section id="card" data-topic="Cardinality">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">ℵ₀</div>
+    <div><div class="eyebrow">Chapter 4.7</div><h2>Cardinality</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: cardinality"></div>
+  </div>
+
+  <p>|A| = n iff there is a bijection between A and N<sub>n</sub> = {0, 1, …, n − 1}. Two sets have the same cardinality iff there is a bijection between them.</p>
+  <div class="cols">
+    <div class="tbl"><table>
+      <thead><tr><th>Finite sets</th><th>Count</th></tr></thead>
+      <tbody>
+        <tr><td class="f">A × B</td><td class="f">|A| · |B|</td></tr>
+        <tr><td class="f">A ∪ B</td><td class="f">|A| + |B| − |A ∩ B|</td></tr>
+        <tr><td class="f">A ∪ B, disjoint</td><td class="f">|A| + |B|</td></tr>
+        <tr><td class="f">P(A)</td><td class="f">2<sup>|A|</sup></td></tr>
+        <tr><td class="f">A<sup>B</sup> (functions B → A)</td><td class="f">|A|<sup>|B|</sup></td></tr>
+      </tbody>
+    </table></div>
+    <div>
+      <p>Example: X = {a, b, c, d, e}, Y = {c, d, e, f}. |X × Y| = 20, |X ∪ Y| = 5 + 4 − 3 = 6, |X<sup>Y</sup>| = 5⁴ = 625.</p>
+      <p>4 prizes to n people (one person may win several): a function from prizes to people, n⁴ ways.</p>
+    </div>
+  </div>
+
+  <h3>Countable infinity</h3>
+  <p><strong>Countably infinite</strong>: there is a bijection ℕ → A (an infinite list f(0), f(1), f(2), … that hits every element once). <strong>Countable</strong>: finite or countably infinite. <strong>Uncountable</strong>: infinite but not countably infinite.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Set</th><th>Bijection or listing from ℕ</th></tr></thead>
+    <tbody>
+      <tr><td>Even naturals E</td><td class="f">f(n) = 2n</td></tr>
+      <tr><td>Integers ℤ</td><td class="f">f(n) = n/2 if n even, −(n + 1)/2 if n odd: 0, −1, 1, −2, 2, …</td></tr>
+      <tr><td>ℕ × ℕ</td><td>list pairs by the sum of coordinates: (0,0), (0,1), (1,0), (0,2), (1,1), (2,0), …</td></tr>
+      <tr><td>Non-negative rationals</td><td>list n/m by n + m = 1, 2, 3, …, skipping repeats: 0/1, 1/1, 1/2, 2/1, 1/3, 3/1, …</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>The union of two countable sets is countable.</li>
+    <li>ℝ is uncountable (Cantor's diagonalisation). If X is uncountable and K ⊆ X is countable, X ∖ K is uncountable, so the irrationals are uncountable.</li>
+    <li>No set X has a bijection with P(X), so there is no largest cardinality.</li>
+  </ul>
+  <div class="trap"><span class="eyebrow">Scope</span><p>You must be able to prove a set is countably infinite by giving a bijection from ℕ and proving it injective and surjective. You will not be asked to prove a set is uncountable.</p></div>
+</section>
+
+<!-- ============ RELATIONS ============ -->
+<section id="rel" data-topic="Relations">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">~</div>
+    <div><div class="eyebrow">Chapter 4.8</div><h2>Relations</h2></div>
+    <div class="conf" role="radiogroup" aria-label="Confidence: relations"></div>
+  </div>
+
+  <p>A binary relation on A is a subset R ⊆ A × A; <code>a R b</code> means (a, b) ∈ R. A function is a special kind of relation.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Property</th><th>Definition</th><th>Fails when</th></tr></thead>
+    <tbody>
+      <tr><td>Reflexive</td><td class="f">∀a (a R a)</td><td>some a with (a, a) ∉ R</td></tr>
+      <tr><td>Symmetric</td><td class="f">∀a∀b (a R b → b R a)</td><td>some (a, b) ∈ R with (b, a) ∉ R</td></tr>
+      <tr><td>Antisymmetric</td><td class="f">∀a∀b ((a R b ∧ b R a) → a = b)</td><td>some a ≠ b with both (a, b) and (b, a) in R</td></tr>
+      <tr><td>Transitive</td><td class="f">∀a∀b∀c ((a R b ∧ b R c) → a R c)</td><td>(a, b), (b, c) ∈ R but (a, c) ∉ R</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cols">
+    <div class="tpl"><span class="eyebrow">Orders</span>
+      <p><strong>Partial order</strong>: reflexive, antisymmetric, transitive. Examples: ≤ on ℕ, ⊆ on P(X), "divides" on ℤ⁺.</p>
+      <p style="margin:0"><strong>Total order</strong>: a partial order where a R b or b R a for every pair. ≤ is total; ⊆ and "divides" are not (2 and 3).</p>
+    </div>
+    <div class="tpl"><span class="eyebrow">Equivalence</span>
+      <p><strong>Equivalence relation</strong>: reflexive, symmetric, transitive. Equivalence class <code>[a]<sub>R</sub> = {b ∈ A | b R a}</code>.</p>
+      <p style="margin:0">The classes form a <strong>partition</strong> of A (non-empty, pairwise disjoint, union is A), and every partition gives an equivalence relation (Theorem 4.12).</p>
+    </div>
+  </div>
+
+  <h3>Checking a relation on A = {a, b, c, d}</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Relation</th><th>Refl.</th><th>Symm.</th><th>Antisymm.</th><th>Trans.</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td class="f">{(a,a),(b,b),(c,c),(d,d),(a,b),(b,a)}</td><td class="yes">yes</td><td class="yes">yes</td><td class="no">no</td><td class="yes">yes</td><td>equivalence; classes {a, b}, {c}, {d}</td></tr>
+      <tr><td class="f">{(a,b),(a,c),(a,d)}</td><td class="no">no</td><td class="no">no</td><td class="yes">yes</td><td class="yes">yes</td><td>neither (transitive vacuously: nothing starts at b, c, d)</td></tr>
+      <tr><td class="f">{(a,b),(b,c),(a,c),(d,d)}</td><td class="no">no</td><td class="no">no</td><td class="yes">yes</td><td class="yes">yes</td><td>not a partial order: (a, a) missing</td></tr>
+      <tr><td class="f">∅ (empty relation)</td><td class="no">no</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td>symmetric and antisymmetric at once</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap"><span class="eyebrow">Trap</span><p>Symmetric and antisymmetric are not opposites: = is both, and a relation can be neither. To show a property fails, one counterexample pair is enough; to show it holds, argue for arbitrary elements.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>Standard equivalences</h3>
+      <ul>
+        <li><span class="f">n ~ m iff 3 | (n − m)</span> on ℤ: classes [0], [1], [2]</li>
+        <li><span class="f">x ~ y iff x − y ∈ ℤ</span> on ℝ: each class has exactly one element in [0, 1)</li>
+        <li><span class="f">x ~ y iff f(x) = f(y)</span>, for any function f</li>
+        <li>X ~ Y iff there is a bijection X → Y (same cardinality)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Transitive closure</h3>
+      <p><code>a R* b</code> iff there is a chain a = x₀ R x₁ R … R x<sub>n</sub> = b with n &gt; 0 ("in one or more steps"). If x R y means y = x + 1 on ℕ, then R* is &lt;. If R is "child of", R* is "descendant of".</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELF-TEST ============ -->
+<section id="test">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">?</div>
+    <div><div class="eyebrow">Answer in your head first</div><h2>Self-test</h2></div>
+  </div>
+  <div class="qa-head">
+    <p class="small" style="margin:0">24 short questions across all chapters. Open an answer only after you have one.</p>
+    <button class="btn" id="qa-toggle" type="button">Show all answers</button>
+  </div>
+  <div class="qa">
+    <details><summary><span class="tag">Propositional</span><span>Is (p → q) → r equivalent to p → (q → r)?</span><span class="chev"></span></summary>
+      <div class="ans"><p>No. With p = q = r = 0: (0 → 0) → 0 = 1 → 0 = 0, but 0 → (anything) = 1.</p></div></details>
+    <details><summary><span class="tag">Propositional</span><span>Simplify ¬(p → q) ∨ q.</span><span class="chev"></span></summary>
+      <div class="ans"><p><code>(p ∧ ¬q) ∨ q</code> (negated implication) ≡ <code>(p ∨ q) ∧ (¬q ∨ q)</code> (distributive) ≡ <code>(p ∨ q) ∧ T</code> (excluded middle) ≡ <code>p ∨ q</code> (identity).</p></div></details>
+    <details><summary><span class="tag">Propositional</span><span>Give the DNF and the CNF of p ↔ q.</span><span class="chev"></span></summary>
+      <div class="ans"><p>True on rows 00 and 11: DNF <code>(¬p ∧ ¬q) ∨ (p ∧ q)</code>. False on rows 01 and 10: CNF <code>(p ∨ ¬q) ∧ (¬p ∨ q)</code>.</p></div></details>
+    <details><summary><span class="tag">Predicate</span><span>Translate "Only students get a discount" with S(x) and D(x).</span><span class="chev"></span></summary>
+      <div class="ans"><p><code>∀x(D(x) → S(x))</code>. "Only S" puts S on the right of the arrow.</p></div></details>
+    <details><summary><span class="tag">Predicate</span><span>Negate ∀x∃y(P(x,y) → Q(y)) with ¬ only on predicates.</span><span class="chev"></span></summary>
+      <div class="ans"><p><code>∃x∀y(P(x,y) ∧ ¬Q(y))</code>: flip both quantifiers, then ¬(a → b) ≡ a ∧ ¬b.</p></div></details>
+    <details><summary><span class="tag">Predicate</span><span>Translate "No student failed every exam" with S(x), E(y), F(x,y).</span><span class="chev"></span></summary>
+      <div class="ans"><p><code>¬∃x(S(x) ∧ ∀y(E(y) → F(x,y)))</code>, equivalently <code>∀x(S(x) → ∃y(E(y) ∧ ¬F(x,y)))</code>.</p></div></details>
+    <details><summary><span class="tag">Deduction</span><span>Valid? p → q, ¬r → ¬q, ¬r ∴ ¬p</span><span class="chev"></span></summary>
+      <div class="ans"><p>Valid. 1. ¬r → ¬q (premise) 2. ¬r (premise) 3. ¬q (1, 2 modus ponens) 4. p → q (premise) 5. ¬p (4, 3 modus tollens). ∎</p></div></details>
+    <details><summary><span class="tag">Deduction</span><span>Valid? p ∨ q, p → r ∴ r</span><span class="chev"></span></summary>
+      <div class="ans"><p>Invalid. Counterexample p = 0, q = 1, r = 0: both premises are true, the conclusion is false.</p></div></details>
+    <details><summary><span class="tag">Deduction</span><span>Show ∃x P(x), ∃x Q(x) ∴ ∃x(P(x) ∧ Q(x)) is invalid.</span><span class="chev"></span></summary>
+      <div class="ans"><p>Structure D = {a, b}, P = {a}, Q = {b}. Both premises hold, but no element is in both P and Q.</p></div></details>
+    <details><summary><span class="tag">Proofs</span><span>Prove: for every integer n, if 3n + 2 is odd then n is odd.</span><span class="chev"></span></summary>
+      <div class="ans"><p>Contrapositive: assume n is even, so n = 2k. Then 3n + 2 = 6k + 2 = 2(3k + 1), which is even. Since n was arbitrary, the claim holds. ∎</p></div></details>
+    <details><summary><span class="tag">Proofs</span><span>Proving p → q by contradiction: what exactly do you assume?</span><span class="chev"></span></summary>
+      <div class="ans"><p><code>p ∧ ¬q</code>: the hypothesis holds and the conclusion fails. Then derive some r ∧ ¬r.</p></div></details>
+    <details><summary><span class="tag">Induction</span><span>What is wrong with "Inductive step: assume P(k) holds for all k"?</span><span class="chev"></span></summary>
+      <div class="ans"><p>It assumes the whole claim. Write "Let k ≥ n₀ be arbitrary and assume P(k)", then prove P(k + 1) for that k.</p></div></details>
+    <details><summary><span class="tag">Induction</span><span>Prove Σ<sub>i=1</sub><sup>n</sup> (2i − 1) = n² for n ≥ 1.</span><span class="chev"></span></summary>
+      <div class="ans"><p>Base: n = 1 gives 1 = 1². Step: let k ≥ 1 be arbitrary and assume the sum up to k is k². Then Σ<sub>i=1</sub><sup>k+1</sup>(2i − 1) = k² + (2k + 1) (IH) = (k + 1)². By induction the formula holds for all n ≥ 1. ∎</p></div></details>
+    <details><summary><span class="tag">Induction</span><span>When do you need strong induction or more than one base case?</span><span class="chev"></span></summary>
+      <div class="ans"><p>When P(k + 1) relies on cases other than P(k): k + 1 = ab with smaller a, b, subtrees of arbitrary smaller size, or recurrences that look back two steps (then check two base cases).</p></div></details>
+    <details><summary><span class="tag">Sets</span><span>A = {a, {b}, {a, b}} with a ≠ b. True or false: b ∈ A, {a, b} ⊆ A, {a, {b}} ⊆ A?</span><span class="chev"></span></summary>
+      <div class="ans"><p>b ∈ A is false. {a, b} ⊆ A is false (b ∉ A), although {a, b} ∈ A is true. {a, {b}} ⊆ A is true because a ∈ A and {b} ∈ A.</p></div></details>
+    <details><summary><span class="tag">Sets</span><span>How many elements does P(P(∅)) have?</span><span class="chev"></span></summary>
+      <div class="ans"><p>Two: P(∅) = {∅}, so P(P(∅)) = {∅, {∅}}.</p></div></details>
+    <details><summary><span class="tag">Sets</span><span>Prove A ∩ B ⊆ A ∪ B.</span><span class="chev"></span></summary>
+      <div class="ans"><p>Let x be arbitrary and assume x ∈ A ∩ B. Then x ∈ A ∧ x ∈ B (definition of ∩), so x ∈ A (simplification), so x ∈ A ∨ x ∈ B (addition), so x ∈ A ∪ B (definition of ∪). Since x was arbitrary, A ∩ B ⊆ A ∪ B. ∎</p></div></details>
+    <details><summary><span class="tag">Functions</span><span>f: ℤ → ℤ, f(n) = 2n + 3. Injective? Surjective?</span><span class="chev"></span></summary>
+      <div class="ans"><p>Injective: 2x + 3 = 2y + 3 gives x = y. Not surjective: 2n + 3 is always odd, so 4 has no preimage.</p></div></details>
+    <details><summary><span class="tag">Functions</span><span>f(x) = x + 1 and g(x) = x² on ℤ. Give g ∘ f and f ∘ g.</span><span class="chev"></span></summary>
+      <div class="ans"><p>(g ∘ f)(x) = (x + 1)², (f ∘ g)(x) = x² + 1. They differ (x = 1 gives 4 and 2).</p></div></details>
+    <details><summary><span class="tag">Cardinality</span><span>Show that the odd natural numbers form a countably infinite set.</span><span class="chev"></span></summary>
+      <div class="ans"><p>f: ℕ → O, f(n) = 2n + 1. Injective: 2x + 1 = 2y + 1 gives x = y. Surjective: an odd m = 2k + 1 has preimage k = (m − 1)/2 ∈ ℕ. So f is a bijection. ∎</p></div></details>
+    <details><summary><span class="tag">Cardinality</span><span>|A| = 3 and |B| = 2. How many functions A → B, and how many B → A?</span><span class="chev"></span></summary>
+      <div class="ans"><p>|B<sup>A</sup>| = 2³ = 8 and |A<sup>B</sup>| = 3² = 9.</p></div></details>
+    <details><summary><span class="tag">Relations</span><span>On {1, 2, 3}: R = {(1,1),(2,2),(3,3),(1,2),(2,1)}. Which properties?</span><span class="chev"></span></summary>
+      <div class="ans"><p>Reflexive, symmetric and transitive, not antisymmetric ((1,2) and (2,1) with 1 ≠ 2). It is an equivalence relation with classes {1, 2} and {3}.</p></div></details>
+    <details><summary><span class="tag">Relations</span><span>Is the empty relation on {1, 2} reflexive, symmetric, transitive?</span><span class="chev"></span></summary>
+      <div class="ans"><p>Not reflexive (no (1,1)). Symmetric, antisymmetric and transitive hold vacuously.</p></div></details>
+    <details><summary><span class="tag">Relations</span><span>n ~ m iff 3 | (n − m) on ℤ. What are the equivalence classes?</span><span class="chev"></span></summary>
+      <div class="ans"><p>[0] = {…, −3, 0, 3, …}, [1] = {…, −2, 1, 4, …}, [2] = {…, −1, 2, 5, …}. Three classes that partition ℤ.</p></div></details>
+  </div>
+</section>
+
+<!-- ============ CHECKER ============ -->
+<section id="check">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">≡</div>
+    <div><div class="eyebrow">Practice tool</div><h2>Truth-table checker</h2></div>
+  </div>
+  <p>Check your answers to equivalence and tautology exercises. Use the buttons or plain keys: <code>~</code> or <code>!</code> for ¬, <code>&amp;</code> for ∧, <code>|</code> for ∨, <code>-&gt;</code> for →, <code>&lt;-&gt;</code> for ↔; T and F are constants. Without parentheses it follows the book: ¬, then ∧, then ∨ and ⊕, then →, then ↔, equal operators left to right, so <code>p → q → r</code> is read as <code>(p → q) → r</code>.</p>
+  <div class="checker">
+    <div class="fields">
+      <div><label for="tt-f1">Formula 1</label><input id="tt-f1" type="text" value="p → q" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+      <div><label for="tt-f2">Formula 2 (optional, to test ≡)</label><input id="tt-f2" type="text" value="¬q → ¬p" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+    </div>
+    <div class="syms" aria-label="Insert a symbol">
+      <button type="button" data-s="¬" aria-label="Insert not">¬</button>
+      <button type="button" data-s=" ∧ " aria-label="Insert and">∧</button>
+      <button type="button" data-s=" ∨ " aria-label="Insert or">∨</button>
+      <button type="button" data-s=" → " aria-label="Insert implies">→</button>
+      <button type="button" data-s=" ↔ " aria-label="Insert if and only if">↔</button>
+      <button type="button" data-s=" ⊕ " aria-label="Insert exclusive or">⊕</button>
+      <button type="button" data-s="(" aria-label="Insert opening parenthesis">(</button>
+      <button type="button" data-s=")" aria-label="Insert closing parenthesis">)</button>
+    </div>
+    <div class="ex">
+      <span class="eyebrow">Try</span>
+      <button type="button" data-a="p → q" data-b="¬q → ¬p">Contrapositive</button>
+      <button type="button" data-a="p → q" data-b="q → p">Converse</button>
+      <button type="button" data-a="¬(p ∧ q)" data-b="¬p ∨ ¬q">DeMorgan</button>
+      <button type="button" data-a="p → (q → r)" data-b="(p ∧ q) → r">Exportation</button>
+      <button type="button" data-a="(p → q) → r" data-b="p → (q → r)">Is → associative?</button>
+      <button type="button" data-a="((p ∨ q) ∧ ¬p) → q" data-b="">Tautology?</button>
+    </div>
+    <div id="tt-out" aria-live="polite"></div>
+  </div>
+  <p class="small" style="margin-top:12px">On the exam a truth table is a valid proof of equivalence: write the rows in sorted order and state the conclusion ("the columns are identical, so P ≡ Q").</p>
+</section>
+
+<footer>
+  <p>Built from Stefan Hugtenburg and Neil Yorke-Smith, <a href="https://books.open.tudelft.nl/home/catalog/book/211" target="_blank" rel="noopener">Delftse Foundations of Computation, 2nd edition</a> (TU Delft OPEN, 2022, CC BY-NC-SA 4.0). Worked examples marked with exercise numbers follow the book; the rest are written for this page. Your chapter ratings are stored only in this browser.</p>
+</footer>
+
+</div>
+
+<script id="rl-core">
+var RL = (function () {
+  var OPS = [['<->','IFF'],['<=>','IFF'],['↔','IFF'],['⇔','IFF'],['->','IMP'],['=>','IMP'],['→','IMP'],['⇒','IMP'],
+    ['/\\','AND'],['&&','AND'],['&','AND'],['∧','AND'],['\\/','OR'],['||','OR'],['|','OR'],['∨','OR'],
+    ['⊕','XOR'],['¬','NOT'],['~','NOT'],['!','NOT'],['(','LP'],[')','RP']];
+  var SYM = {AND:'∧', OR:'∨', XOR:'⊕', IMP:'→', IFF:'↔', NOT:'¬', LP:'(', RP:')'};
+  function tokenize(s) {
+    var toks = [], i = 0;
+    while (i < s.length) {
+      var c = s[i];
+      if (/\s/.test(c)) { i++; continue; }
+      var hit = null;
+      for (var k = 0; k < OPS.length; k++) { if (s.startsWith(OPS[k][0], i)) { hit = OPS[k]; break; } }
+      if (hit) { toks.push({t: hit[1], pos: i}); i += hit[0].length; continue; }
+      if (c === 'T' || c === '1' || c === '⊤') { toks.push({t: 'T', pos: i}); i++; continue; }
+      if (c === 'F' || c === '0' || c === '⊥') { toks.push({t: 'F', pos: i}); i++; continue; }
+      if (/[A-Za-z]/.test(c)) {
+        var j = i + 1;
+        while (j < s.length && /[0-9']/.test(s[j])) j++;
+        toks.push({t: 'VAR', v: s.slice(i, j), pos: i}); i = j; continue;
+      }
+      throw new Error('Unknown symbol "' + c + '" at position ' + (i + 1));
+    }
+    return toks;
+  }
+  function describe(t) { return t.t === 'VAR' ? '"' + t.v + '"' : (t.t === 'T' || t.t === 'F') ? '"' + t.t + '"' : '"' + SYM[t.t] + '"'; }
+  var LEVELS = [['IFF'], ['IMP'], ['OR', 'XOR'], ['AND']];
+  function parse(src) {
+    var toks = tokenize(src), i = 0;
+    if (!toks.length) throw new Error('Type a formula.');
+    function level(l) {
+      if (l === LEVELS.length) return unary();
+      var left = level(l + 1);
+      while (i < toks.length && LEVELS[l].indexOf(toks[i].t) >= 0) {
+        var op = toks[i++].t;
+        left = {op: op, a: left, b: level(l + 1)};
+      }
+      return left;
+    }
+    function unary() {
+      var t = toks[i];
+      if (!t) throw new Error('The formula ends too early. Is an operand missing?');
+      if (t.t === 'NOT') { i++; return {op: 'NOT', a: unary()}; }
+      if (t.t === 'LP') {
+        i++; var e = level(0);
+        if (i >= toks.length || toks[i].t !== 'RP') throw new Error('Missing ")" for the "(" at position ' + (t.pos + 1));
+        i++; return e;
+      }
+      if (t.t === 'VAR') { i++; return {op: 'VAR', v: t.v}; }
+      if (t.t === 'T' || t.t === 'F') { i++; return {op: t.t}; }
+      throw new Error('Expected a variable, ¬ or "(" but found ' + describe(t) + ' at position ' + (t.pos + 1));
+    }
+    var tree = level(0);
+    if (i < toks.length) {
+      var t = toks[i];
+      if (t.t === 'RP') throw new Error('Unmatched ")" at position ' + (t.pos + 1));
+      throw new Error('Missing operator before ' + describe(t) + ' at position ' + (t.pos + 1) + '. Use ∨ or | for "or", not v.');
+    }
+    return tree;
+  }
+  function show(n, top) {
+    if (n.op === 'VAR') return n.v;
+    if (n.op === 'T' || n.op === 'F') return n.op;
+    if (n.op === 'NOT') return '¬' + show(n.a, false);
+    var s = show(n.a, false) + ' ' + SYM[n.op] + ' ' + show(n.b, false);
+    return top ? s : '(' + s + ')';
+  }
+  function evaluate(n, env) {
+    switch (n.op) {
+      case 'VAR': return env[n.v];
+      case 'T': return true;
+      case 'F': return false;
+      case 'NOT': return !evaluate(n.a, env);
+      case 'AND': return evaluate(n.a, env) && evaluate(n.b, env);
+      case 'OR': return evaluate(n.a, env) || evaluate(n.b, env);
+      case 'XOR': return evaluate(n.a, env) !== evaluate(n.b, env);
+      case 'IMP': return !evaluate(n.a, env) || evaluate(n.b, env);
+      case 'IFF': return evaluate(n.a, env) === evaluate(n.b, env);
+    }
+  }
+  function vars(nodes) {
+    var seen = {};
+    (function walk(list) { list.forEach(function (n) { if (!n) return; if (n.op === 'VAR') seen[n.v] = 1; walk([n.a, n.b]); }); })(nodes);
+    return Object.keys(seen).sort(function (x, y) { return x.localeCompare(y, undefined, {numeric: true}); });
+  }
+  function compute(nodes, vs) {
+    var rows = [], n = vs.length;
+    for (var r = 0; r < (1 << n); r++) {
+      var env = {}, vals = [];
+      for (var j = 0; j < n; j++) { var bit = ((r >> (n - 1 - j)) & 1) === 1; env[vs[j]] = bit; vals.push(bit); }
+      rows.push({vals: vals, out: nodes.map(function (nd) { return evaluate(nd, env); })});
+    }
+    return rows;
+  }
+  function classify(col) {
+    var t = col.filter(Boolean).length;
+    return t === col.length ? 'tautology' : t === 0 ? 'contradiction' : 'contingency';
+  }
+  return {tokenize: tokenize, parse: parse, show: show, evaluate: evaluate, vars: vars, compute: compute, classify: classify};
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+  /* ---------- confidence ratings ---------- */
+  var KEY = 'rl-endterm-confidence';
+  var LABEL = {shaky: 'Shaky', ok: 'OK', solid: 'Solid'};
+  var store = {};
+  try { var raw = localStorage.getItem(KEY); if (raw) store = JSON.parse(raw) || {}; } catch (e) { store = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[data-topic]'));
+  var box = document.getElementById('conf-chips'), note = document.getElementById('conf-note');
+
+  sections.forEach(function (sec) {
+    var slot = sec.querySelector('.conf');
+    if (!slot) return;
+    ['shaky', 'ok', 'solid'].forEach(function (v) {
+      var id = 'c-' + sec.id + '-' + v;
+      var inp = document.createElement('input');
+      inp.type = 'radio'; inp.name = 'c-' + sec.id; inp.id = id; inp.value = v;
+      if (store[sec.id] === v) inp.checked = true;
+      inp.addEventListener('change', function () { store[sec.id] = v; save(); render(); });
+      var lab = document.createElement('label');
+      lab.htmlFor = id; lab.textContent = LABEL[v];
+      slot.appendChild(inp); slot.appendChild(lab);
+    });
+  });
+
+  function render() {
+    box.textContent = '';
+    var shaky = [], unrated = 0, solid = 0;
+    sections.forEach(function (sec) {
+      var v = store[sec.id] || '';
+      var a = document.createElement('a');
+      a.href = '#' + sec.id; a.className = 'chip s-' + (v || 'none');
+      var d = document.createElement('span'); d.className = 'dot';
+      var n = document.createElement('span'); n.textContent = sec.dataset.topic;
+      var s = document.createElement('span'); s.className = 'st'; s.textContent = v ? LABEL[v] : 'not rated';
+      a.appendChild(d); a.appendChild(n); a.appendChild(s); box.appendChild(a);
+      if (!v) unrated++; else if (v === 'shaky') shaky.push(sec.dataset.topic); else if (v === 'solid') solid++;
+    });
+    if (unrated === sections.length) {
+      note.textContent = 'Tonight, rate each chapter with the Shaky / OK / Solid switch next to its title. Tomorrow, re-read whatever is still Shaky.';
+      return;
+    }
+    var msg = solid + ' of ' + sections.length + ' solid';
+    if (unrated) msg += ', ' + unrated + ' not rated';
+    msg += '. ';
+    msg += shaky.length ? 'Re-read first: ' + shaky.join(', ') + '.' : 'Nothing marked Shaky.';
+    note.textContent = msg;
+  }
+  render();
+  document.getElementById('conf-reset').addEventListener('click', function () {
+    store = {}; save();
+    document.querySelectorAll('.conf input').forEach(function (i) { i.checked = false; });
+    render();
+  });
+
+  /* ---------- self-test ---------- */
+  var qaBtn = document.getElementById('qa-toggle');
+  var qas = Array.prototype.slice.call(document.querySelectorAll('#test .qa details'));
+  function syncQa() { qaBtn.textContent = qas.every(function (d) { return d.open; }) ? 'Hide all answers' : 'Show all answers'; }
+  qaBtn.addEventListener('click', function () {
+    var open = !qas.every(function (d) { return d.open; });
+    qas.forEach(function (d) { d.open = open; });
+    syncQa();
+  });
+  qas.forEach(function (d) { d.addEventListener('toggle', syncQa); });
+
+  /* ---------- truth-table checker ---------- */
+  var f1 = document.getElementById('tt-f1'), f2 = document.getElementById('tt-f2'), out = document.getElementById('tt-out');
+  var last = f1;
+  [f1, f2].forEach(function (el) {
+    el.addEventListener('focus', function () { last = el; });
+    el.addEventListener('input', run);
+  });
+  document.querySelectorAll('.syms button').forEach(function (b) {
+    b.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    b.addEventListener('click', function () {
+      var el = last, sym = b.getAttribute('data-s');
+      var st = el.selectionStart == null ? el.value.length : el.selectionStart;
+      var en = el.selectionEnd == null ? st : el.selectionEnd;
+      el.value = el.value.slice(0, st) + sym + el.value.slice(en);
+      var pos = st + sym.length;
+      el.focus();
+      try { el.setSelectionRange(pos, pos); } catch (e) {}
+      run();
+    });
+  });
+  document.querySelectorAll('.ex button').forEach(function (b) {
+    b.addEventListener('click', function () { f1.value = b.getAttribute('data-a'); f2.value = b.getAttribute('data-b'); run(); });
+  });
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fail(msg) { out.textContent = ''; out.appendChild(el('p', 'err', msg)); }
+  var NAMES = {tautology: 'a tautology', contradiction: 'a contradiction', contingency: 'a contingency'};
+
+  function run() {
+    out.textContent = '';
+    var srcs = [f1.value.trim(), f2.value.trim()], forms = [];
+    for (var k = 0; k < 2; k++) {
+      if (!srcs[k]) continue;
+      try { forms.push({label: 'F' + (k + 1), node: RL.parse(srcs[k])}); }
+      catch (e) { return fail('Formula ' + (k + 1) + ': ' + e.message); }
+    }
+    if (!forms.length) { out.appendChild(el('p', 'small', 'Type a formula above to see its truth table.')); return; }
+    var nodes = forms.map(function (f) { return f.node; });
+    var vs = RL.vars(nodes);
+    if (vs.length > 6) return fail('That uses ' + vs.length + ' variables. The checker handles up to 6 (64 rows).');
+    var rows = RL.compute(nodes, vs);
+
+    forms.forEach(function (f) {
+      var p = el('p', 'read'); p.appendChild(document.createTextNode(f.label + ' read as '));
+      p.appendChild(el('span', 'f', RL.show(f.node, true))); out.appendChild(p);
+    });
+
+    var ver = el('div', 'verdicts');
+    forms.forEach(function (f, idx) {
+      var cls = RL.classify(rows.map(function (r) { return r.out[idx]; }));
+      ver.appendChild(el('span', 'pill neutral', f.label + ' is ' + NAMES[cls]));
+    });
+    var diffs = 0, first = -1;
+    if (forms.length === 2) {
+      rows.forEach(function (r, i) { if (r.out[0] !== r.out[1]) { diffs++; if (first < 0) first = i; } });
+      if (!diffs) ver.appendChild(el('span', 'pill good', 'F1 ≡ F2: identical in all ' + rows.length + ' rows'));
+      else {
+        var at = vs.map(function (v, j) { return v + ' = ' + (rows[first].vals[j] ? 1 : 0); }).join(', ');
+        ver.appendChild(el('span', 'pill bad', 'Not equivalent: they differ in ' + diffs + ' of ' + rows.length + ' rows, e.g. ' + (at || 'the only row')));
+      }
+    }
+    out.appendChild(ver);
+
+    var wrap = el('div', 'tbl'), t = el('table', 'tt'), thead = el('thead'), hr = el('tr');
+    vs.forEach(function (v) { hr.appendChild(el('th', null, v)); });
+    forms.forEach(function (f) { hr.appendChild(el('th', null, f.label)); });
+    thead.appendChild(hr); t.appendChild(thead);
+    var tb = el('tbody');
+    rows.forEach(function (r) {
+      var tr = el('tr', forms.length === 2 && r.out[0] !== r.out[1] ? 'diff' : null);
+      r.vals.forEach(function (b) { tr.appendChild(el('td', null, b ? '1' : '0')); });
+      r.out.forEach(function (b) { tr.appendChild(el('td', null, b ? '1' : '0')); });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); wrap.appendChild(t); out.appendChild(wrap);
+  }
+  run();
+})();
+</script>
+
+</body></html>

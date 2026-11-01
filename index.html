@@ -140,6 +140,22 @@ table.steps td.why{color:var(--muted);font-size:.84rem;width:34%}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:4px 28px}
 .cols > div{min-width:0}
 
+/* proof recipes */
+.grp{margin:34px 0 0;padding-bottom:6px;color:var(--cobalt)}
+.recipe{border-top:1px solid var(--line);padding:18px 0 8px;scroll-margin-top:calc(62px + env(safe-area-inset-top,0px))}
+.rhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:10px}
+.rhead h3{margin:0}
+.rhead .use{font-size:.88rem;color:var(--muted)}
+.rbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:12px 24px;align-items:start}
+@media (max-width:720px){.rbody{grid-template-columns:minmax(0,1fr)}}
+.rbody ol{margin:0;padding-left:1.3em}
+.rbody ol li{margin:4px 0}
+.skel{margin:0;font:.8rem/1.65 var(--math);background:var(--glaze);border-radius:8px;padding:12px 14px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+.skel .bl{color:var(--cobalt);font-weight:600}
+.skel .j{color:var(--muted)}
+.rules-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 28px;list-style:none;padding:0}
+.rules-list li{padding:8px 0;border-bottom:1px solid var(--line);margin:0}
+
 /* graphs */
 .figs{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 16px}
 .fig{flex:1 1 210px;margin:0;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:10px 12px;min-width:0;display:flex;flex-direction:column;gap:6px}
@@ -230,6 +246,7 @@ footer p{max-width:none}
 <div class="bar" role="navigation" aria-label="Chapters">
   <nav>
     <a href="#now">Before you walk in</a>
+    <a href="#recipes">Proof recipes</a>
     <a href="#prop">Propositional</a>
     <a href="#pred">Predicate</a>
     <a href="#deduce">Deduction</a>
@@ -278,6 +295,425 @@ footer p{max-width:none}
     <li><b>Relation types</b>Equivalence: reflexive, symmetric, transitive. Partial order: reflexive, antisymmetric, transitive. Total order: partial order where every pair is comparable.</li>
     <li><b>Spelling</b>"Prove" is the verb, "proof" is the noun. The book names this the most common mistake on R&amp;L exams.</li>
   </ul>
+</section>
+
+<!-- ============ PROOF RECIPES ============ -->
+<section id="recipes">
+  <div class="shead">
+    <div class="tile" aria-hidden="true">⊢</div>
+    <div><div class="eyebrow">Every proof type, step by step</div><h2>Proof recipes</h2></div>
+  </div>
+
+  <h3 style="margin-top:0">Ground rules for every proof</h3>
+  <ul class="rules-list">
+    <li>Start with "Proof." and name the method ("Proof by contradiction."). End with ∎ or Q.E.D.</li>
+    <li>Write it in list form: one step per line, with its justification next to it.</li>
+    <li>Introduce every variable: "Let x be arbitrary", "for some integer k". Use a new letter for each new witness (k, then m or k′).</li>
+    <li>Justify every step: premise, assumption, definition, named law, IH, algebra, closure of ℤ.</li>
+    <li>Use the definitions: unwind them at the start ("n is even, so n = 2k") and rewind them at the end.</li>
+    <li>Never assume what you are proving, and never "prove" a for-all claim with examples.</li>
+  </ul>
+
+  <h3>Which recipe?</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>The claim looks like</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><span class="f">P ≡ Q</span>, "is a tautology"</td><td><a href="#r-equiv">Logical equivalence</a></td></tr>
+      <tr><td>premises ∴ conclusion, "is this argument valid?"</td><td><a href="#r-arg">Valid or invalid argument</a></td></tr>
+      <tr><td><span class="f">∀x(P(x) → Q(x))</span>, "if … then …", "every … is …"</td><td><a href="#r-direct">Direct proof</a>; if stuck, <a href="#r-contra">contrapositive</a></td></tr>
+      <tr><td>"… is irrational", "infinitely many", "there is no …"</td><td><a href="#r-contradiction">Contradiction</a></td></tr>
+      <tr><td>depends on even/odd, remainder mod 3, sign</td><td><a href="#r-cases">Division into cases</a></td></tr>
+      <tr><td>"if and only if", "necessary and sufficient"</td><td><a href="#r-iff">Both directions</a></td></tr>
+      <tr><td><span class="f">∃x P(x)</span>, or "prove or disprove" a false ∀-claim</td><td><a href="#r-exists">Example or counterexample</a></td></tr>
+      <tr><td><span class="f">∀n ≥ n₀ P(n)</span> and P(k + 1) needs only P(k)</td><td><a href="#r-weak">Weak induction</a></td></tr>
+      <tr><td>P(k + 1) needs P(k − 1), or some smaller value</td><td><a href="#r-strong">Strong induction</a></td></tr>
+      <tr><td>for all formulas, trees, strings (a recursively defined set)</td><td><a href="#r-struct">Structural induction</a></td></tr>
+      <tr><td>"this loop computes …"</td><td><a href="#r-inv">Loop invariant</a></td></tr>
+      <tr><td><span class="f">A ⊆ B</span>, <span class="f">A = B</span>, set identities</td><td><a href="#r-sets">Element chasing</a></td></tr>
+      <tr><td>injective, surjective, bijective, countably infinite</td><td><a href="#r-func">Function proofs</a></td></tr>
+      <tr><td>equivalence relation, partial order</td><td><a href="#r-rel">Relation proofs</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="eyebrow grp">Logic</div>
+
+  <div class="recipe" id="r-equiv">
+    <div class="rhead"><h3>Logical equivalence</h3><span class="use">Show P ≡ Q, or that P is a tautology</span></div>
+    <div class="rbody">
+      <ol>
+        <li><strong>Truth table:</strong> list all 2ⁿ rows in sorted order (000 … 111).</li>
+        <li>Add a column for each subformula, working from the inside out.</li>
+        <li>Compare the final columns. Identical means P ≡ Q; all 1s means a tautology. Write that sentence.</li>
+        <li><strong>Or a chain of laws:</strong> P ≡ … ≡ Q, one law per step, named each time.</li>
+        <li><strong>Not equivalent:</strong> give one row where they differ and compute both values.</li>
+      </ol>
+<pre class="skel">p q | <span class="bl">⟨subformulas⟩</span> | P | Q
+0 0 |      …        | … | …
+0 1 |      …        | … | …
+…
+The columns for P and Q are identical in all
+2ⁿ rows, so P ≡ Q.
+
+  P
+≡ <span class="bl">⟨…⟩</span>     <span class="j">[definition of →]</span>
+≡ <span class="bl">⟨…⟩</span>     <span class="j">[DeMorgan's law]</span>
+≡ Q       <span class="j">[identity law]</span></pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-arg">
+    <div class="rhead"><h3>Valid or invalid argument</h3><span class="use">Premises ∴ conclusion</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Translate to symbols and list the premises.</li>
+        <li>Plan backwards: what would give you the conclusion?</li>
+        <li><strong>Valid:</strong> numbered lines. Each line is a premise or follows from earlier lines by a named rule, citing the line numbers.</li>
+        <li>The last line is the conclusion; end with ∎.</li>
+        <li><strong>Invalid:</strong> give an assignment (or a structure D = {…}, P = {…}) that makes every premise true and the conclusion false. Show each value.</li>
+      </ol>
+<pre class="skel">1. <span class="bl">⟨premise⟩</span>       <span class="j">[premise]</span>
+2. <span class="bl">⟨premise⟩</span>       <span class="j">[premise]</span>
+3. <span class="bl">⟨…⟩</span>             <span class="j">[from 1, 2 (modus ponens)]</span>
+…
+n. <span class="bl">⟨conclusion⟩</span>    <span class="j">[from …]</span> ∎
+
+Invalid: take p = 0, q = 1, r = 0.
+Premise 1: <span class="bl">⟨…⟩</span> = 1. Premise 2: <span class="bl">⟨…⟩</span> = 1.
+Conclusion: <span class="bl">⟨…⟩</span> = 0.
+All premises are true and the conclusion is
+false, so the argument is invalid.</pre>
+    </div>
+  </div>
+
+  <div class="eyebrow grp">Regular proofs</div>
+
+  <div class="recipe" id="r-direct">
+    <div class="rhead"><h3>Direct proof (with generalisation)</h3><span class="use">∀x(P(x) → Q(x)): "if … then …", "every … is …"</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Rewrite the claim as ∀x(P(x) → Q(x)) so you know what to assume and what to reach.</li>
+        <li>"Let x be arbitrary." Use nothing about x except what you assume.</li>
+        <li>Assume P(x).</li>
+        <li>Unwind P with its definition (even: x = 2k for some integer k).</li>
+        <li>Do the algebra, justifying each line.</li>
+        <li>Rewind into the definition of Q (write it as 2·(…)) and say why the bracket is an integer.</li>
+        <li>Conclude: since x was arbitrary, the claim holds for all x.</li>
+      </ol>
+<pre class="skel">Proof (direct).
+1. Let n ∈ ℤ be arbitrary and
+   assume n is even.          <span class="j">[assumption]</span>
+2. n = 2k for some integer k  <span class="j">[definition of even]</span>
+3. n² = 4k² = 2(2k²)          <span class="j">[algebra]</span>
+4. 2k² is an integer          <span class="j">[ℤ closed under ·]</span>
+5. n² is even                 <span class="j">[definition of even]</span>
+Since n was arbitrary,
+∀n ∈ ℤ (n even → n² even). ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-contra">
+    <div class="rhead"><h3>Contrapositive</h3><span class="use">p → q when ¬q gives you something concrete and q does not</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Say it: "We prove the contrapositive ¬q → ¬p."</li>
+        <li>Negate both parts carefully: not even = odd, ¬(a ∧ b) ≡ ¬a ∨ ¬b.</li>
+        <li>Do a direct proof of ¬q → ¬p.</li>
+        <li>Conclude that p → q holds because it is equivalent to its contrapositive.</li>
+      </ol>
+<pre class="skel">Claim: if n² is even, then n is even.
+Proof (contrapositive). We prove:
+if n is odd, then n² is odd.
+1. Let n be arbitrary and assume
+   n is odd.                    <span class="j">[assumption]</span>
+2. n = 2k + 1, k an integer     <span class="j">[definition of odd]</span>
+3. n² = 2(2k² + 2k) + 1         <span class="j">[algebra]</span>
+4. n² is odd                    <span class="j">[definition of odd]</span>
+So ¬q → ¬p, and p → q ≡ ¬q → ¬p,
+so the claim holds. ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-contradiction">
+    <div class="rhead"><h3>Proof by contradiction</h3><span class="use">"… is irrational", "infinitely many", "no … exists"</span></div>
+    <div class="rbody">
+      <ol>
+        <li>"Assume, for the sake of contradiction, that …" followed by the exact negation of the claim. For p → q assume p ∧ ¬q; for ∀x P(x) assume some x with ¬P(x).</li>
+        <li>Derive consequences, with justifications.</li>
+        <li>Reach a statement r and its negation ¬r, and point to both lines.</li>
+        <li>"Contradiction. So the assumption is false and the claim holds. ∎"</li>
+      </ol>
+<pre class="skel">Proof (by contradiction).
+1. Assume, for the sake of contradiction,
+   <span class="bl">⟨negation of the claim⟩</span>.    <span class="j">[assumption]</span>
+2. <span class="bl">⟨…⟩</span>                         <span class="j">[definition …]</span>
+…
+i. <span class="bl">⟨r⟩</span>                         <span class="j">[from …]</span>
+j. <span class="bl">⟨¬r⟩</span>                        <span class="j">[from …]</span>
+Lines i and j contradict each other, so the
+assumption is false. Hence <span class="bl">⟨claim⟩</span>. ∎
+
+√3: assume √3 = m/n in lowest terms;
+then 3 | m and 3 | n: a common factor.</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-cases">
+    <div class="rhead"><h3>Division into cases</h3><span class="use">Claims where parity, remainder or sign matters</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Choose cases that together cover everything, and say why (every integer is 3k, 3k + 1 or 3k + 2).</li>
+        <li>Prove the claim in each case separately. Each case is a small direct proof.</li>
+        <li>Conclude: the cases cover all possibilities, so the claim holds.</li>
+      </ol>
+<pre class="skel">Proof (division into cases).
+Let n ∈ ℤ be arbitrary. Every integer has the
+form 3k, 3k + 1 or 3k + 2 for some integer k.
+Case 1: n = 3k.      … so 3 | <span class="bl">⟨…⟩</span>.
+Case 2: n = 3k + 1.  … so 3 | <span class="bl">⟨…⟩</span>.
+Case 3: n = 3k + 2.  … so 3 | <span class="bl">⟨…⟩</span>.
+The cases cover every integer and n was
+arbitrary, so the claim holds. ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-iff">
+    <div class="rhead"><h3>If and only if</h3><span class="use">"p iff q", "necessary and sufficient"</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Split it: p ↔ q ≡ (p → q) ∧ (q → p).</li>
+        <li>(⇒) Assume p and show q.</li>
+        <li>(⇐) Assume q and show p. Each direction may use its own method, e.g. one direct and one contrapositive.</li>
+        <li>Conclude that both directions hold.</li>
+      </ol>
+<pre class="skel">Proof. Since p ↔ q ≡ (p → q) ∧ (q → p),
+we prove both directions.
+(⇒) Assume p. … Therefore q.
+(⇐) Assume q. … Therefore p.
+Both directions hold, so p ↔ q. ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-exists">
+    <div class="rhead"><h3>Example and counterexample</h3><span class="use">∃x P(x), or disproving ∀x P(x)</span></div>
+    <div class="rbody">
+      <ol>
+        <li><strong>∃x P(x):</strong> name one specific element and check P for it by computing.</li>
+        <li><strong>Disprove ∀x P(x):</strong> name one specific element a and show ¬P(a) by computing.</li>
+        <li><strong>Disprove ∃x P(x):</strong> prove ∀x ¬P(x) with a general proof. One example is not enough.</li>
+        <li>For "prove or disprove", decide first by trying small values.</li>
+      </ol>
+<pre class="skel">Claim (false): every prime number is odd.
+Counterexample: 2 is prime (its only positive
+divisors are 1 and 2), and 2 = 2·1 is even.
+So the claim is false.</pre>
+    </div>
+  </div>
+
+  <div class="eyebrow grp">Induction family</div>
+
+  <div class="recipe" id="r-weak">
+    <div class="rhead"><h3>Weak (ordinary) induction</h3><span class="use">∀n ≥ n₀ P(n) when P(k + 1) follows from P(k)</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Define P(n) exactly and the start value n₀.</li>
+        <li><strong>Base case:</strong> compute both sides for n = n₀ separately.</li>
+        <li><strong>Inductive step:</strong> "Let k ≥ n₀ be arbitrary and assume P(k)." Write the IH out in full.</li>
+        <li>Write the target P(k + 1) in full: replace n by (k + 1) everywhere, with parentheses.</li>
+        <li>Start from one side of P(k + 1) and rewrite until P(k) appears: split off the last term of a sum, or add and subtract a constant for divisibility.</li>
+        <li>Apply the IH and label it "(IH)". Finish the algebra to reach the other side.</li>
+        <li>Conclusion naming the principle of mathematical induction.</li>
+      </ol>
+<pre class="skel">Let P(n) be "<span class="bl">⟨statement⟩</span>". We prove
+∀n ≥ <span class="bl">⟨n₀⟩</span> P(n) by induction on n.
+
+Base case (n = <span class="bl">⟨n₀⟩</span>):
+  LHS = <span class="bl">⟨…⟩</span>, RHS = <span class="bl">⟨…⟩</span>, so P(<span class="bl">⟨n₀⟩</span>) holds.
+
+Inductive step:
+  Let k ≥ <span class="bl">⟨n₀⟩</span> be arbitrary and assume
+  P(k): <span class="bl">⟨P(k) in full⟩</span>                 <span class="j">(IH)</span>
+  We show P(k + 1): <span class="bl">⟨P(k+1) in full⟩</span>
+  <span class="bl">⟨LHS of P(k+1)⟩</span>
+    = <span class="bl">⟨rewrite so P(k) appears⟩</span>
+    = <span class="bl">⟨…⟩</span>                           <span class="j">(by IH)</span>
+    = <span class="bl">⟨RHS of P(k+1)⟩</span>
+  So P(k + 1) holds.
+
+By the principle of mathematical induction,
+P(n) holds for all n ≥ <span class="bl">⟨n₀⟩</span>. ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-strong">
+    <div class="rhead"><h3>Strong induction</h3><span class="use">P(k + 1) needs P(k − 1), or some smaller value than k</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Define P(n) and n₀.</li>
+        <li><strong>Base cases:</strong> check every value the step cannot handle. If the step looks back two places (f<sub>k−1</sub>, f<sub>k−2</sub>), you need two base cases.</li>
+        <li><strong>Inductive step:</strong> "Let k be arbitrary and assume P(j) for all j with n₀ ≤ j ≤ k" (IH).</li>
+        <li>Show P(k + 1). Say which smaller j you use and why it is between n₀ and k.</li>
+        <li>Conclusion naming strong induction.</li>
+      </ol>
+<pre class="skel">Let P(n) be "<span class="bl">⟨…⟩</span>". We prove ∀n ≥ <span class="bl">⟨n₀⟩</span> P(n)
+by strong induction.
+
+Base case(s): P(<span class="bl">⟨n₀⟩</span>) [and P(<span class="bl">⟨n₀+1⟩</span>)] hold
+because <span class="bl">⟨direct check⟩</span>.
+
+Inductive step: Let k ≥ <span class="bl">⟨last base case⟩</span> be
+arbitrary and assume P(j) for all j with
+n₀ ≤ j ≤ k.                                <span class="j">(IH)</span>
+We show P(k + 1): <span class="bl">⟨k + 1 is built from j₁, j₂⟩</span>.
+Since n₀ ≤ j₁, j₂ ≤ k, the IH gives P(j₁) and
+P(j₂), so <span class="bl">⟨…⟩</span> and P(k + 1) holds.
+
+By the principle of strong induction, P(n)
+holds for all n ≥ <span class="bl">⟨n₀⟩</span>. ∎
+
+Example: k + 1 not prime ⇒ k + 1 = ab with
+2 ≤ a, b ≤ k; the IH applies to a and b.</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-struct">
+    <div class="rhead"><h3>Structural induction</h3><span class="use">For every element of a recursively defined set: formulas, trees, strings</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Write down the recursive definition: basis rules, constructor rules, exclusivity ("nothing else").</li>
+        <li>Define P(x). Define any helper function you need (like l(φ) and r(φ)) recursively, with one case per rule.</li>
+        <li><strong>Base case</strong> for every basis rule.</li>
+        <li><strong>Inductive case</strong> for every constructor rule: let the parts be arbitrary, assume P for each part (IH), and show P for the new element.</li>
+        <li>Conclusion: every rule preserves P and nothing else is in the set.</li>
+        <li>For trees the rules are ∅, a leaf (x, ∅), and (x, (T₁, …, T<sub>k</sub>)) with an IH for every T<sub>i</sub>.</li>
+      </ol>
+<pre class="skel">Let P(φ) be "<span class="bl">⟨property⟩</span>". We prove ∀φ ∈ PROP
+P(φ) by structural induction.
+
+Base case (Atoms): <span class="bl">⟨show P(pᵢ)⟩</span>.
+
+Inductive case (Negation): Let x ∈ PROP be
+arbitrary and assume P(x).               <span class="j">(IH)</span>
+Then <span class="bl">⟨…⟩</span>, so P(¬x).
+
+Inductive case (Binary connective): Let
+x, y ∈ PROP be arbitrary and assume P(x)
+and P(y).                                <span class="j">(IH)</span>
+Then <span class="bl">⟨…⟩</span>, so P((x ∗ y)) for every
+∗ ∈ {∧, ∨, →, ↔}.
+
+Every rule preserves P and nothing else is in
+PROP, so by structural induction P(φ) holds
+for all φ ∈ PROP. ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-inv">
+    <div class="rhead"><h3>Loop invariant</h3><span class="use">Prove that a loop computes what it should</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Identify the guard (loop condition) and the post-condition you want after the loop.</li>
+        <li>Choose an invariant I that links the variables to the goal, often "the answer so far". Add bounds such as 0 ≤ i ≤ n if step 6 needs them.</li>
+        <li><strong>Initialisation:</strong> plug the starting values into I.</li>
+        <li><strong>Maintenance:</strong> assume I and the guard for the old values, write the new values from the loop body, and show I for the new values. This is the inductive step.</li>
+        <li><strong>Termination:</strong> some natural-number quantity (like n − i) strictly decreases each iteration, so the guard becomes false.</li>
+        <li><strong>Correctness:</strong> I together with ¬guard gives the post-condition.</li>
+      </ol>
+<pre class="skel">i = 0; s = 0
+while (i &lt; n) { i = i + 1; s = s + i }
+Goal: s = n(n + 1)/2 for n ∈ ℕ.
+Invariant I: s = i(i + 1)/2 and 0 ≤ i ≤ n.
+
+1. Initialisation: i = 0, s = 0, and
+   0 = 0·1/2, 0 ≤ 0 ≤ n.  ✓
+2. Maintenance: assume I and i &lt; n.
+   New values i′ = i + 1, s′ = s + i + 1.
+   s′ = i(i + 1)/2 + (i + 1)        <span class="j">(by I)</span>
+      = (i + 1)(i + 2)/2 = i′(i′ + 1)/2
+   and i &lt; n gives i′ ≤ n.  ✓
+3. Termination: n − i decreases by 1 each
+   iteration and stays ≥ 0, so eventually
+   the guard i &lt; n is false.
+4. Correctness: I and ¬(i &lt; n) give i = n,
+   so s = n(n + 1)/2. ∎</pre>
+    </div>
+  </div>
+
+  <div class="eyebrow grp">Sets, functions, relations</div>
+
+  <div class="recipe" id="r-sets">
+    <div class="rhead"><h3>Set proofs (element chasing)</h3><span class="use">A ⊆ B, A = B, set identities</span></div>
+    <div class="rbody">
+      <ol>
+        <li><strong>A ⊆ B:</strong> let x be arbitrary and assume x ∈ A. Translate with the definitions (∩ is ∧, ∪ is ∨, ∖ is "∈ and ∉", complement is ∉) and reach x ∈ B.</li>
+        <li><strong>A = B:</strong> prove A ⊆ B and B ⊆ A, or give one chain x ∈ A ↔ … ↔ x ∈ B with a reason per step.</li>
+        <li><strong>Not equal, or not a subset:</strong> give concrete sets and an element that is in one but not the other.</li>
+        <li>A Venn diagram is not a proof.</li>
+      </ol>
+<pre class="skel">Proof (A ∩ B ⊆ A ∪ B).
+1. Let x be arbitrary and assume
+   x ∈ A ∩ B.                   <span class="j">[assumption]</span>
+2. x ∈ A ∧ x ∈ B                <span class="j">[definition of ∩]</span>
+3. x ∈ A                        <span class="j">[simplification]</span>
+4. x ∈ A ∨ x ∈ B                <span class="j">[addition]</span>
+5. x ∈ A ∪ B                    <span class="j">[definition of ∪]</span>
+Since x was arbitrary, A ∩ B ⊆ A ∪ B. ∎</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-func">
+    <div class="rhead"><h3>Function proofs and countably infinite</h3><span class="use">Injective, surjective, bijective, "A is countably infinite"</span></div>
+    <div class="rbody">
+      <ol>
+        <li><strong>Is it a function A → B?</strong> Every a ∈ A gets exactly one value, and that value lies in B.</li>
+        <li><strong>Injective:</strong> let x, y ∈ A be arbitrary and assume f(x) = f(y); derive x = y.</li>
+        <li><strong>Surjective:</strong> let b ∈ B be arbitrary; solve f(a) = b for a; check a ∈ A; verify f(a) = b.</li>
+        <li><strong>Bijective:</strong> prove both.</li>
+        <li><strong>Countably infinite:</strong> give f: ℕ → A, show it is a bijection, and say "there is a bijection from ℕ to A, so A is countably infinite."</li>
+        <li>If A is several infinite "streams", interleave them: n even/odd for two streams; n = 3k, 3k + 1, 3k + 2 for three.</li>
+      </ol>
+<pre class="skel">A = positive integers ending in 3 or 7.
+f: ℕ → A,
+f(n) = 10·(n/2) + 3        if n is even
+       10·((n − 1)/2) + 7  if n is odd
+This lists A as 3, 7, 13, 17, 23, 27, …
+
+Injective: even n give values ending in 3,
+odd n give values ending in 7, and within
+each case f is strictly increasing.
+Surjective: a = 10m + 3 has n = 2m;
+a = 10m + 7 has n = 2m + 1.
+So f is a bijection from ℕ to A, hence A is
+countably infinite.
+
+With negatives like −7 included, use three
+streams: 10k + 3, 10k + 7, −(10k + 7) for
+n = 3k, 3k + 1, 3k + 2.</pre>
+    </div>
+  </div>
+
+  <div class="recipe" id="r-rel">
+    <div class="rhead"><h3>Relation proofs</h3><span class="use">"Show R is an equivalence relation / a partial order"</span></div>
+    <div class="rbody">
+      <ol>
+        <li>Write each required property as its formula.</li>
+        <li><strong>Reflexive:</strong> let a be arbitrary; show a R a.</li>
+        <li><strong>Symmetric:</strong> let a, b be arbitrary and assume a R b; show b R a.</li>
+        <li><strong>Antisymmetric:</strong> let a, b be arbitrary and assume a R b and b R a; show a = b.</li>
+        <li><strong>Transitive:</strong> let a, b, c be arbitrary and assume a R b and b R c; show a R c.</li>
+        <li>Conclude: reflexive + symmetric + transitive is an equivalence relation; reflexive + antisymmetric + transitive is a partial order. To show a property fails, give one concrete counterexample.</li>
+      </ol>
+<pre class="skel">x ~ y iff x − y ∈ ℤ, on ℝ.
+Reflexive: let x ∈ ℝ. x − x = 0 ∈ ℤ,
+  so x ~ x.
+Symmetric: let x, y ∈ ℝ with x ~ y, so
+  x − y = k ∈ ℤ. Then y − x = −k ∈ ℤ,
+  so y ~ x.
+Transitive: let x, y, z ∈ ℝ with
+  x − y = k ∈ ℤ and y − z = m ∈ ℤ.
+  Then x − z = k + m ∈ ℤ, so x ~ z.
+So ~ is an equivalence relation. ∎</pre>
+    </div>
+  </div>
 </section>
 
 <!-- ============ PROPOSITIONAL ============ -->
@@ -547,6 +983,8 @@ footer p{max-width:none}
       <tr><td>claim about all n</td><td>Division into cases</td><td>Cover every case, e.g. n = 3k, 3k + 1, 3k + 2.</td></tr>
     </tbody>
   </table></div>
+
+  <p class="small">Step-by-step versions with fill-in skeletons for every method: <a href="#recipes">Proof recipes</a>.</p>
 
   <h3>The format the course wants: list form</h3>
   <div class="tpl"><span class="eyebrow">Claim: for all integers n, if n² is even then n is even</span>
